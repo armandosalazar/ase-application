@@ -25,6 +25,13 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
+
+        binding.bottomSheet.setVisibility(View.GONE);
+        binding.buttonWrite.setOnClickListener(v -> {
+            binding.bottomSheet.setVisibility(View.VISIBLE);
+        });
+
+        return binding.getRoot();
     }
 }

@@ -11,6 +11,7 @@ import com.google.android.material.navigation.NavigationBarView;
 
 import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
 import org.armandosalazar.aseapplication.ui.home.HomeFragment;
+import org.armandosalazar.aseapplication.ui.notifications.NotificationsFragment;
 import org.armandosalazar.aseapplication.ui.profile.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -30,8 +31,11 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance()).commit();
                 return true;
             }
+            if (item.getItemId() == R.id.navigation_notifications) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, NotificationsFragment.newInstance()).commit();
+                return true;
+            }
             if (item.getItemId() == R.id.navigation_profile) {
-                Log.i("MainActivity", "ProfileFragment");
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ProfileFragment.newInstance()).commit();
                 return true;
             }

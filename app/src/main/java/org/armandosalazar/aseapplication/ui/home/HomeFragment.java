@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.armandosalazar.aseapplication.R;
+import org.armandosalazar.aseapplication.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
+    private FragmentHomeBinding binding;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();

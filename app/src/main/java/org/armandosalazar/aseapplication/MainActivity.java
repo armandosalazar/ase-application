@@ -1,16 +1,12 @@
 package org.armandosalazar.aseapplication;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 
-import com.google.android.material.navigation.NavigationBarView;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
 import org.armandosalazar.aseapplication.ui.home.HomeFragment;
+import org.armandosalazar.aseapplication.ui.location.LocationFragment;
 import org.armandosalazar.aseapplication.ui.notifications.NotificationsFragment;
 import org.armandosalazar.aseapplication.ui.profile.ProfileFragment;
 
@@ -29,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.navigation_home) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, HomeFragment.newInstance()).commit();
+                return true;
+            }
+            if (item.getItemId() == R.id.navigation_location) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LocationFragment.newInstance()).commit();
                 return true;
             }
             if (item.getItemId() == R.id.navigation_notifications) {

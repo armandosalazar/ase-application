@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
+import org.armandosalazar.aseapplication.ui.chat.ChatFragment;
 import org.armandosalazar.aseapplication.ui.home.HomeFragment;
 import org.armandosalazar.aseapplication.ui.location.LocationFragment;
 import org.armandosalazar.aseapplication.ui.notifications.NotificationsFragment;
@@ -29,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
             }
             if (item.getItemId() == R.id.navigation_location) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LocationFragment.newInstance()).commit();
+                return true;
+            }
+            if (item.getItemId() == R.id.navigation_chat) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ChatFragment.newInstance()).commit();
                 return true;
             }
             if (item.getItemId() == R.id.navigation_notifications) {

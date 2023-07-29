@@ -7,20 +7,6 @@
     tools:context=".ui.profile.ProfileFragment">
 
 
-    <TextView
-        android:id="@+id/text_profile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:text="Armando Salazar"
-        android:textAlignment="center"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -28,21 +14,30 @@
         android:src="@drawable/user_avatar"
         app:layout_constraintBottom_toTopOf="@id/button_edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/image_profile"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_profile" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+    <TextView
+        android:id="@+id/text_profile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/image_profile" />
+
+    <TextView
         android:id="@+id/button_edit_profile"
-        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit profile"
-        android:textAllCaps="false"
+        android:text="Edit"
         app:layout_constraintBottom_toTopOf="@id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_profile"
-        app:strokeColor="?attr/colorPrimary" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@id/text_profile" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

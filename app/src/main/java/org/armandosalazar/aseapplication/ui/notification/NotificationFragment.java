@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import org.armandosalazar.aseapplication.adapter.NotificationsAdapter;
 import org.armandosalazar.aseapplication.databinding.FragmentNotificationBinding;
 import org.armandosalazar.aseapplication.model.Notification;
-import org.armandosalazar.aseapplication.network.NotificationsService;
+import org.armandosalazar.aseapplication.network.NotificationService;
 
 import java.util.List;
 
@@ -36,9 +36,9 @@ public class NotificationFragment extends Fragment {
         binding = FragmentNotificationBinding.inflate(inflater, container, false);
         binding.recyclerViewNotifications.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        NotificationsService notificationsService = NotificationsService.retrofit.create(NotificationsService.class);
+        NotificationService notificationService = NotificationService.retrofit.create(NotificationService.class);
 
-        Call<List<Notification>> call = notificationsService.getNotifications();
+        Call<List<Notification>> call = notificationService.getNotifications();
 
         call.enqueue(new Callback<List<Notification>>() {
             @Override

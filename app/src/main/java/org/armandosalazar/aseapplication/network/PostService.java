@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
-public interface PostsService {
+public interface PostService {
     @GET("/api/posts")
     Call<List<Post>> getPosts();
 

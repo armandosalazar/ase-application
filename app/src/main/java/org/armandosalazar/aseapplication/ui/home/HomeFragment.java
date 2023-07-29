@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import org.armandosalazar.aseapplication.adapter.PostsAdapter;
 import org.armandosalazar.aseapplication.databinding.FragmentHomeBinding;
 import org.armandosalazar.aseapplication.model.Post;
-import org.armandosalazar.aseapplication.network.PostsService;
+import org.armandosalazar.aseapplication.network.PostService;
 
 import java.util.List;
 
@@ -36,22 +36,22 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
-        PostsService postsService = PostsService.retrofit.create(PostsService.class);
+        PostService postService = PostService.retrofit.create(PostService.class);
 
-        Call<List<Post>> call = postsService.getPosts();
+        Call<List<Post>> call = postService.getPosts();
 
         call.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                Log.i("PostsService", "Successfully retrieved posts");
+                Log.i("PostService", "Successfully retrieved posts");
                 binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
                 binding.recyclerViewPosts.setAdapter(new PostsAdapter(response.body()));
             }
 
             @Override
             public void onFailure(Call<List<Post>> call, Throwable t) {
-                Log.e("PostsService", "Failed to retrieve posts");
-                Log.e("PostsService", t.getMessage());
+                Log.e("PostService", "Failed to retrieve posts");
+                Log.e("PostService", t.getMessage());
             }
         });
 

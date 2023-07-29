@@ -8,15 +8,16 @@
 
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/user_avatar"
-        app:layout_constraintBottom_toTopOf="@id/button_edit_profile"
-        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/image_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/user_avatar"
+        app:layout_constraintBottom_toTopOf="@id/button_edit_profile_photo"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:shapeAppearance="@style/circular"
         app:layout_constraintTop_toTopOf="parent" />
+
 
     <TextView
         android:id="@+id/text_profile"
@@ -29,10 +30,10 @@
         app:layout_constraintTop_toBottomOf="@id/image_profile" />
 
     <TextView
-        android:id="@+id/button_edit_profile"
+        android:id="@+id/button_edit_profile_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Edit"
+        android:text="Edit Photo"
         app:layout_constraintBottom_toTopOf="@id/tab_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +46,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_edit_profile">
+        app:layout_constraintTop_toBottomOf="@id/button_edit_profile_photo">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

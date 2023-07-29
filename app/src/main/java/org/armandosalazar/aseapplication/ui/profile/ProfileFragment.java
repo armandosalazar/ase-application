@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.tabs.TabLayout;
@@ -15,6 +18,7 @@ import org.armandosalazar.aseapplication.databinding.FragmentProfileBinding;
 import org.armandosalazar.aseapplication.ui.profile.qualifications.QualificationsFragment;
 
 public class ProfileFragment extends Fragment {
+
 
     private ProfileViewModel viewModel;
     private FragmentProfileBinding binding;
@@ -31,6 +35,23 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+
+        ActivityResultLauncher<PickVisualMediaRequest> pickMedia = registerForActivityResult(new ActivityResultContracts.PickVisualMedia(), uri -> {
+            if (uri != null) {
+                Log.i("PhotoPicker", "Selected URI: " + uri);
+                binding.imageProfile.setImageURI(uri);
+            } else {
+                Log.i("PhotoPicker", "No media selected");
+            }
+        });
+
+        binding.buttonEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pickMedia.launch(new PickVisualMediaRequest.Builder().build());
+
+            }
+        });
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import org.armandosalazar.aseapplication.adapter.CommentsAdapter;
 import org.armandosalazar.aseapplication.databinding.FragmentQualificationsBinding;
 import org.armandosalazar.aseapplication.model.Comment;
-import org.armandosalazar.aseapplication.network.CommentsService;
+import org.armandosalazar.aseapplication.network.CommentService;
 
 import java.util.List;
 
@@ -36,9 +36,9 @@ public class QualificationsFragment extends Fragment {
         binding = FragmentQualificationsBinding.inflate(inflater, container, false);
         binding.recyclerViewQualifications.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        CommentsService commentsService = CommentsService.retrofit.create(CommentsService.class);
+        CommentService commentService = CommentService.retrofit.create(CommentService.class);
 
-        Call<List<Comment>> call = commentsService.getComments();
+        Call<List<Comment>> call = commentService.getComments();
         call.enqueue(new Callback<List<Comment>>() {
             @Override
             public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {

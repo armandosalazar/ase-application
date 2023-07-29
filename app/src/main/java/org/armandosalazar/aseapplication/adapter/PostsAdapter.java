@@ -17,7 +17,7 @@ import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.ItemPostBinding;
 import org.armandosalazar.aseapplication.model.Comment;
 import org.armandosalazar.aseapplication.model.Post;
-import org.armandosalazar.aseapplication.network.CommentsService;
+import org.armandosalazar.aseapplication.network.CommentService;
 
 import java.util.List;
 
@@ -67,9 +67,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
             RecyclerView recyclerView = bottomSheetComments.findViewById(R.id.recycler_view_comments);
 
-            CommentsService commentsService = CommentsService.retrofit.create(CommentsService.class);
+            CommentService commentService = CommentService.retrofit.create(CommentService.class);
 
-            Call<List<Comment>> call = commentsService.getComments();
+            Call<List<Comment>> call = commentService.getComments();
             call.enqueue(new Callback<List<Comment>>() {
                 @Override
                 public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {

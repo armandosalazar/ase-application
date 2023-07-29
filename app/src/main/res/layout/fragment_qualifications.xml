@@ -7,11 +7,11 @@
     tools:context=".ui.profile.qualifications.QualificationsFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,11 +19,11 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_qualifications"
+            android:paddingBottom="50dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
-
-
     </LinearLayout>
+
 
     <EditText
         android:layout_width="match_parent"

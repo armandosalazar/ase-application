@@ -1,5 +1,6 @@
 package org.armandosalazar.aseapplication.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,7 +23,8 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     @NonNull
     @Override
     public NotificationsAdapter.NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        final View view = View.inflate(parent.getContext(), org.armandosalazar.aseapplication.R.layout.item_notification, null);
+        // fix: https://stackoverflow.com/questions/30691150/match-parent-width-does-not-work-in-recyclerview
+        final View view = LayoutInflater.from(parent.getContext()).inflate(org.armandosalazar.aseapplication.R.layout.item_notification, parent, false);
         return new NotificationViewHolder(view);
     }
 

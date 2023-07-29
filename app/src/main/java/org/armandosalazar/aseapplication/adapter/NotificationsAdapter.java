@@ -1,5 +1,8 @@
 package org.armandosalazar.aseapplication.adapter;
 
+import android.text.SpannableString;
+import android.text.SpannedString;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +35,12 @@ public class NotificationsAdapter extends RecyclerView.Adapter<NotificationsAdap
     public void onBindViewHolder(@NonNull NotificationsAdapter.NotificationViewHolder holder, int position) {
         binding = ItemNotificationBinding.bind(holder.itemView);
         final Notification notification = notifications.get(position);
-        binding.notificationTitle.setText(notification.getTitle());
-        binding.notificationDescription.setText(notification.getDescription());
+
+        SpannableString content = new SpannableString(notification.getTitle() + " " + notification.getDescription());
+        content.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, notification.getTitle().length(), SpannedString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        content.setSpan(new StyleSpan(android.graphics.Typeface.NORMAL), notification.getTitle().length(), content.length(), SpannedString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        binding.notificationContent.setText(content);
         binding.notificationDate.setText(notification.getDate());
     }
 

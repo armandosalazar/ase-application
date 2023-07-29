@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Notifications"
         android:textSize="18sp"
+        android:paddingHorizontal="5dp"
+        android:paddingVertical="10dp"
         android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView

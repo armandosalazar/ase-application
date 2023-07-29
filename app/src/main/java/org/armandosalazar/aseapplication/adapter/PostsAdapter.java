@@ -1,16 +1,16 @@
 package org.armandosalazar.aseapplication.adapter;
 
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.ItemPostBinding;
@@ -40,18 +40,21 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostsAdapter.PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         binding = ItemPostBinding.bind(holder.itemView);
         Post post = posts.get(position);
 
         binding.textUsername.setText(post.getUsername());
         binding.textContent.setText(post.getContent());
         binding.addComment.setOnClickListener(v -> {
-            Dialog dialog = new Dialog(v.getContext());
-            dialog.setContentView(R.layout.dialog_add_comment);
+            BottomSheetDialog bottomSheetComments = new BottomSheetDialog(v.getContext());
+            bottomSheetComments.setContentView(R.layout.bottom_sheet_comments);
 
-            RecyclerView recyclerView = dialog.findViewById(R.id.recycler_view_comments);
+            RecyclerView recyclerView = bottomSheetComments.findViewById(R.id.recycler_view_comments);
             recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
+
+            LinearLayout linearLayout = bottomSheetComments.findViewById(R.id.linear_layout_comment);
+            linearLayout.setGravity(Gravity.BOTTOM);
 
             CommentsService commentsService = CommentsService.retrofit.create(CommentsService.class);
 
@@ -70,11 +73,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
                 }
             });
 
-
-            dialog.show();
-            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            dialog.getWindow().setGravity(Gravity.BOTTOM);
+            bottomSheetComments.show();
         });
     }
 

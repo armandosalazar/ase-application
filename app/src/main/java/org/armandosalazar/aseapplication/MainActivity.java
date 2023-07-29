@@ -8,7 +8,7 @@ import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
 import org.armandosalazar.aseapplication.ui.chat.ChatFragment;
 import org.armandosalazar.aseapplication.ui.home.HomeFragment;
 import org.armandosalazar.aseapplication.ui.location.LocationFragment;
-import org.armandosalazar.aseapplication.ui.notifications.NotificationsFragment;
+import org.armandosalazar.aseapplication.ui.notification.NotificationFragment;
 import org.armandosalazar.aseapplication.ui.profile.ProfileFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             if (item.getItemId() == R.id.navigation_notifications) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, NotificationsFragment.newInstance()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, NotificationFragment.newInstance()).commit();
                 return true;
             }
             if (item.getItemId() == R.id.navigation_profile) {

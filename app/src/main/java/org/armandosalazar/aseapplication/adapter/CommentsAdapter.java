@@ -1,5 +1,6 @@
 package org.armandosalazar.aseapplication.adapter;
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -23,7 +24,9 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     @NonNull
     @Override
     public CommentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CommentViewHolder(View.inflate(parent.getContext(), R.layout.item_comment, null));
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_comment, parent, false);
+        return new CommentViewHolder(view);
     }
 
     @Override

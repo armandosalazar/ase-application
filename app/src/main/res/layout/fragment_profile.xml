@@ -22,10 +22,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_margin="10dp"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/user_avatar"
         app:layout_constraintBottom_toTopOf="@id/button_edit_profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

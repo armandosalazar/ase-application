@@ -9,6 +9,8 @@
         android:id="@+id/text_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingTop="10dp"
         android:text="username"
         android:textStyle="bold" />
 
@@ -16,12 +18,37 @@
         android:id="@+id/text_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="content" />
 
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="50dp" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_favorite" />
+
+        <ImageView
+            android:id="@+id/add_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:src="@drawable/ic_comment" />
+
+    </LinearLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
 
 </LinearLayout>

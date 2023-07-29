@@ -45,11 +45,13 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        // Using ImagePicker
+
+
         binding.buttonEditProfilePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickMedia.launch(new PickVisualMediaRequest.Builder().build());
-
             }
         });
 

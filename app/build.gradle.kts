@@ -30,7 +30,6 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    // enable view binding
     buildFeatures {
         viewBinding = true
     }
@@ -44,6 +43,8 @@ dependencies {
     /* My dependencies */
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    // ImagePicker
+    implementation("com.github.dhaval2404:imagepicker:2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

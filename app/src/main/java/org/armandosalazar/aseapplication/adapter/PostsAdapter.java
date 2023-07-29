@@ -1,7 +1,6 @@
 package org.armandosalazar.aseapplication.adapter;
 
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -49,6 +48,15 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
         binding.textUsername.setText(post.getUsername());
         binding.textContent.setText(post.getContent());
+
+        binding.addLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                binding.addLike.setText(" Liked");
+            } else {
+                binding.addLike.setText(" Like");
+            }
+        });
+
         binding.addComment.setOnClickListener(v -> {
             BottomSheetDialog bottomSheetComments = new BottomSheetDialog(v.getContext());
             bottomSheetComments.setContentView(R.layout.bottom_sheet_comments);
@@ -58,10 +66,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
 
 
             RecyclerView recyclerView = bottomSheetComments.findViewById(R.id.recycler_view_comments);
-            recyclerView.setLayoutManager(new LinearLayoutManager(v.getContext()));
-
-            LinearLayout linearLayout = bottomSheetComments.findViewById(R.id.linear_layout_comment);
-            linearLayout.setGravity(Gravity.BOTTOM);
 
             CommentsService commentsService = CommentsService.retrofit.create(CommentsService.class);
 
@@ -71,6 +75,9 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
                 public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
                     Log.i("Comments", response.body().toString());
                     CommentsAdapter commentsAdapter = new CommentsAdapter(response.body());
+                    final LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
+                    layoutManager.setReverseLayout(true);
+                    recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(commentsAdapter);
                 }
 

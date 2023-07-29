@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -40,22 +41,46 @@
         android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:paddingVertical="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:src="@drawable/ic_favorite" />
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="wrap_content" />
 
-        <ImageView
+        <CheckBox
+            android:id="@+id/add_like"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_favorite"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:tag="unchecked"
+            android:text=" Like"
+            android:layout_width="wrap_content"
+            app:useMaterialThemeColors="false" />
+
+        <LinearLayout
+            android:layout_height="wrap_content"
             android:id="@+id/add_comment"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:src="@drawable/ic_comment" />
+            android:orientation="horizontal"
+            android:paddingLeft="10dp">
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_comment" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:text="Comment"
+                android:textColor="#000" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

@@ -13,5 +13,4 @@ public interface NotificationService {
     Call<List<Notification>> getNotifications();
 
     Retrofit retrofit = RetrofitClient.get();
-
 }

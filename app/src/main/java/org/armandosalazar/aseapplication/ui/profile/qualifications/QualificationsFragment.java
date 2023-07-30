@@ -6,18 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
-import org.armandosalazar.aseapplication.adapter.CommentsAdapter;
 import org.armandosalazar.aseapplication.databinding.FragmentQualificationsBinding;
-import org.armandosalazar.aseapplication.model.Comment;
-import org.armandosalazar.aseapplication.network.CommentService;
-
-import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class QualificationsFragment extends Fragment {
     private FragmentQualificationsBinding binding;
@@ -29,28 +19,11 @@ public class QualificationsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = FragmentQualificationsBinding.inflate(getLayoutInflater());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentQualificationsBinding.inflate(inflater, container, false);
-        binding.recyclerViewQualifications.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        CommentService commentService = CommentService.retrofit.create(CommentService.class);
-
-        Call<List<Comment>> call = commentService.getComments();
-        call.enqueue(new Callback<List<Comment>>() {
-            @Override
-            public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                binding.recyclerViewQualifications.setAdapter(new CommentsAdapter(response.body()));
-            }
-
-            @Override
-            public void onFailure(Call<List<Comment>> call, Throwable t) {
-
-            }
-        });
-
         return binding.getRoot();
     }
 }

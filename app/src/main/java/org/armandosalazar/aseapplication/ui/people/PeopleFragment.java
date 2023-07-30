@@ -1,4 +1,4 @@
-package org.armandosalazar.aseapplication.ui.chat;
+package org.armandosalazar.aseapplication.ui.people;
 
 import android.os.Bundle;
 
@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 
 import org.armandosalazar.aseapplication.R;
 
-public class ChatFragment extends Fragment {
-    public static ChatFragment newInstance() {
-        return new ChatFragment();
+public class PeopleFragment extends Fragment {
+    public static PeopleFragment newInstance() {
+        return new PeopleFragment();
     }
 
     @Override
@@ -22,6 +22,6 @@ public class ChatFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_chat, container, false);
+        return inflater.inflate(R.layout.fragment_people, container, false);
     }
 }

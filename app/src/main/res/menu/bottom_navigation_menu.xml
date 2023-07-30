@@ -9,9 +9,9 @@
         android:icon="@drawable/ic_location"
         android:title="Location" />
     <item
-        android:id="@+id/navigation_chat"
-        android:icon="@drawable/ic_chat"
-        android:title="Chat" />
+        android:id="@+id/navigation_people"
+        android:icon="@drawable/ic_people"
+        android:title="People" />
     <item
         android:id="@+id/navigation_notifications"
         android:icon="@drawable/ic_notifications"

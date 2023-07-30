@@ -4,11 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.location.LocationFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <!-- Google Map -->
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="location" />
-
+        android:layout_height="match_parent" />
 </FrameLayout>

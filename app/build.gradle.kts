@@ -40,8 +40,9 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.9.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    /* My dependencies */
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    // Retrofit Gson Converter
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // ImagePicker
     implementation("com.github.dhaval2404:imagepicker:2.1")
@@ -53,8 +54,10 @@ dependencies {
     // RxJava
     implementation("io.reactivex.rxjava3:rxjava:3.1.3")
     implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
-    // RxJava Retrofit Adapter
+    // Retrofit RxJava Adapter
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+    // Google Maps
+    implementation("com.google.android.gms:play-services-maps:18.1.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

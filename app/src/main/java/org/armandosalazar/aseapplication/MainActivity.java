@@ -8,7 +8,7 @@ import androidx.datastore.preferences.core.MutablePreferences;
 import androidx.datastore.preferences.core.PreferencesKeys;
 
 import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
-import org.armandosalazar.aseapplication.ui.chat.ChatFragment;
+import org.armandosalazar.aseapplication.ui.people.PeopleFragment;
 import org.armandosalazar.aseapplication.ui.home.HomeFragment;
 import org.armandosalazar.aseapplication.ui.location.LocationFragment;
 import org.armandosalazar.aseapplication.ui.notification.NotificationFragment;
@@ -38,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LocationFragment.newInstance()).commit();
                 return true;
             }
-            if (item.getItemId() == R.id.navigation_chat) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, ChatFragment.newInstance()).commit();
+            if (item.getItemId() == R.id.navigation_people) {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, PeopleFragment.newInstance()).commit();
                 return true;
             }
             if (item.getItemId() == R.id.navigation_notifications) {

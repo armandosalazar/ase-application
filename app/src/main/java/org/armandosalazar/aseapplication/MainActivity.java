@@ -1,8 +1,11 @@
 package org.armandosalazar.aseapplication;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.datastore.preferences.core.MutablePreferences;
+import androidx.datastore.preferences.core.PreferencesKeys;
 
 import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
 import org.armandosalazar.aseapplication.ui.chat.ChatFragment;
@@ -10,6 +13,9 @@ import org.armandosalazar.aseapplication.ui.home.HomeFragment;
 import org.armandosalazar.aseapplication.ui.location.LocationFragment;
 import org.armandosalazar.aseapplication.ui.notification.NotificationFragment;
 import org.armandosalazar.aseapplication.ui.profile.ProfileFragment;
+
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
@@ -46,6 +52,16 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        // Using the DataManager class
+        DataManager.getInstance(this).getDataStore().updateDataAsync(dataStore -> {
+            MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
+            mutablePreferences.set(PreferencesKeys.booleanKey("dark_mode"), true);
+            return Single.just(mutablePreferences);
+        });
+        // read data
+        Flowable<Boolean> darkMode = DataManager.getInstance(this).getDataStore().data().map(preferences -> preferences.get(PreferencesKeys.booleanKey("dark_mode")));
+        Log.e("darkMode", "DARK MODE: " + darkMode.blockingFirst());
 
         setContentView(binding.getRoot());
     }

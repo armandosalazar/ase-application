@@ -47,6 +47,15 @@ dependencies {
     implementation("com.github.dhaval2404:imagepicker:2.1")
     // CircleImageView
     implementation("de.hdodenhof:circleimageview:3.1.0")
+    // DataStore
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
+    // RxJava
+    implementation("io.reactivex.rxjava3:rxjava:3.1.3")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    // RxJava Retrofit Adapter
+    implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
+
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

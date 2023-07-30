@@ -15,6 +15,7 @@ import org.armandosalazar.aseapplication.network.PostService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -37,11 +38,30 @@ public class HomeViewModel extends ViewModel {
                 .subscribe(
                         posts::setValue,
                         throwable -> {
+                            // get throwable message
+                            String message = throwable.getMessage();
+                            Log.e(TAG, "onCreate: " + message);
+                            // get http status code
+                            Log.e(TAG, "onCreate: " + Objects.requireNonNull(throwable.getCause()));
+
+                            // verify if exception is a connection exception
+                            if (throwable.getCause() instanceof java.net.SocketTimeoutException) {
+                                message = "Connection timeout";
+                            }
+                            // verify if connection exception is a timeout exception
+                            if (throwable.getCause() instanceof java.net.UnknownHostException) {
+                                message = "Unknown host";
+                            }
+                            // verify if connection exception is a connection refused exception
+                            if (throwable.getCause() instanceof java.net.ConnectException) {
+                                message = "Connection refused";
+                            }
+
                             posts.setValue(Collections.emptyList());
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
                             builder.setTitle("Error");
-                            builder.setMessage("Error fetching data");
+                            builder.setMessage(message);
                             builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
                             builder.create().show();
                         },

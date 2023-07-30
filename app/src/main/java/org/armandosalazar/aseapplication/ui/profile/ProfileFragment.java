@@ -1,5 +1,6 @@
 package org.armandosalazar.aseapplication.ui.profile;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -16,14 +18,23 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.FragmentProfileBinding;
+import org.armandosalazar.aseapplication.network.ProfileService;
 import org.armandosalazar.aseapplication.ui.profile.qualifications.QualificationsFragment;
 
+import java.io.File;
+import java.util.Objects;
+
 import kotlin.Unit;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
 
-    private ProfileViewModel viewModel;
     private FragmentProfileBinding binding;
 
     public static ProfileFragment newInstance() {
@@ -36,16 +47,39 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
 
         ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            Log.i("PhotoPicker", "Result code: " + result.getResultCode());
-            if (result.getResultCode() == getActivity().RESULT_OK) {
+            if (result.getResultCode() == Activity.RESULT_OK) {
                 Intent data = result.getData();
                 if (data != null) {
-                    Log.i("PhotoPicker", "Selected URI: " + data.getData());
                     binding.imageProfile.setImageURI(data.getData());
+
+                    ProfileService service = ProfileService.retrofit.create(ProfileService.class);
+
+                    File file = new File(Objects.requireNonNull(Objects.requireNonNull(data.getData()).getPath()));
+
+                    MultipartBody.Part part = new MultipartBody
+                            .Builder()
+                            .setType(MultipartBody.FORM)
+                            .addFormDataPart("picture", file.getName(), RequestBody.create(MediaType.parse("image/*"), file))
+                            .build()
+                            .part(0);
+
+                    Call<Void> call = service.uploadPicture(part);
+                    call.enqueue(new Callback<Void>() {
+                        @Override
+                        public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                            Log.i("ProfileFragment", "Response code: " + response.code());
+                        }
+
+                        @Override
+                        public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                            Log.e("ProfileFragment", "Error uploading picture", t);
+                        }
+                    });
+
                 } else {
                     Log.i("PhotoPicker", "No media selected");
                 }
@@ -54,7 +88,7 @@ public class ProfileFragment extends Fragment {
 
         binding.buttonEditProfilePhoto.setOnClickListener(v -> {
             ImagePicker.with(ProfileFragment.this)
-                    .crop()
+                    .crop(1, 1)
                     .compress(1024)
                     .maxResultSize(1080, 1080)
                     .createIntent(intent -> {
@@ -67,7 +101,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Log.i(ProfileFragment.class.getSimpleName(), "Tab selected: " + tab.getText());
-                if (tab.getText().equals("Qualifications")) {
+                if (Objects.equals(tab.getText(), "Qualifications")) {
                     getParentFragmentManager().beginTransaction().replace(R.id.profile_fragment_container, QualificationsFragment.newInstance()).commit();
                 }
             }

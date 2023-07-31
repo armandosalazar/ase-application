@@ -51,7 +51,7 @@ public class SignUpViewModel extends ViewModel {
 
                                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                                 builder.setTitle("Error");
-                                builder.setMessage(errorResponse.getError());
+                                builder.setMessage(errorResponse.getMessage());
                                 builder.setPositiveButton("OK", null);
                                 builder.create().show();
                             }

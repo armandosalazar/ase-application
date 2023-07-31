@@ -8,10 +8,10 @@ import androidx.datastore.preferences.core.MutablePreferences;
 import androidx.datastore.preferences.core.PreferencesKeys;
 
 import org.armandosalazar.aseapplication.databinding.ActivityMainBinding;
-import org.armandosalazar.aseapplication.ui.people.PeopleFragment;
 import org.armandosalazar.aseapplication.ui.home.HomeFragment;
-import org.armandosalazar.aseapplication.ui.location.LocationFragment;
+import org.armandosalazar.aseapplication.ui.map.MapFragment;
 import org.armandosalazar.aseapplication.ui.notification.NotificationFragment;
+import org.armandosalazar.aseapplication.ui.people.PeopleFragment;
 import org.armandosalazar.aseapplication.ui.profile.ProfileFragment;
 
 import io.reactivex.rxjava3.core.Flowable;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             if (item.getItemId() == R.id.navigation_location) {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, LocationFragment.newInstance()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, MapFragment.newInstance()).commit();
                 return true;
             }
             if (item.getItemId() == R.id.navigation_people) {
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        // Using the DataManager class
+        // Update mutable preferences
         DataManager.getInstance(this).getDataStore().updateDataAsync(dataStore -> {
             MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
             mutablePreferences.set(PreferencesKeys.booleanKey("dark_mode"), true);

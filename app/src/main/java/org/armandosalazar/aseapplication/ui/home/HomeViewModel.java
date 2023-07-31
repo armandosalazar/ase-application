@@ -74,7 +74,7 @@ public class HomeViewModel extends ViewModel {
                             posts.setValue(Collections.emptyList());
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                            builder.setTitle("Error");
+                            builder.setTitle("ErrorResponse");
                             builder.setMessage(message);
                             builder.setPositiveButton("OK", (dialog, which) -> dialog.dismiss());
                             builder.create().show();

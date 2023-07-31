@@ -1,13 +1,13 @@
 package org.armandosalazar.aseapplication.model;
 
-public class Error {
+public class SuccessResponse {
     private String message;
     private String code;
 
-    public Error() {
+    public SuccessResponse() {
     }
 
-    public Error(String message, String code) {
+    public SuccessResponse(String message, String code) {
         this.message = message;
         this.code = code;
     }

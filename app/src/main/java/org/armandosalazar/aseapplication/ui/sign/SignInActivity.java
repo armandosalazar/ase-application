@@ -13,6 +13,7 @@ import org.armandosalazar.aseapplication.databinding.ActivitySignInBinding;
 public class SignInActivity extends AppCompatActivity {
     private static final String TAG = "SignInActivity";
     private ActivitySignInBinding binding;
+    SignInViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +27,12 @@ public class SignInActivity extends AppCompatActivity {
         binding.tvSignUp.setOnClickListener(v -> {
             Log.d(TAG, "onCreate: Sign up clicked");
             startActivity(new Intent(this, SignUpActivity.class));
+        });
+
+        viewModel = new SignInViewModel(this);
+
+        binding.btnSignIn.setOnClickListener(v -> {
+            viewModel.login("armando@email.com", "1234");
         });
 
         setContentView(binding.getRoot());

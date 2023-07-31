@@ -76,7 +76,7 @@ public class ProfileFragment extends Fragment {
 
                         @Override
                         public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                            Log.e("ProfileFragment", "Error uploading picture", t);
+                            Log.e("ProfileFragment", "ErrorResponse uploading picture", t);
                         }
                     });
 

@@ -10,6 +10,7 @@ import org.armandosalazar.aseapplication.databinding.ActivitySignUpBinding;
 
 public class SignUpActivity extends AppCompatActivity {
     ActivitySignUpBinding binding;
+    SignUpViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,8 +21,14 @@ public class SignUpActivity extends AppCompatActivity {
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
         binding.tvSignIn.setText(content);
 
+        viewModel = new SignUpViewModel(this);
+
         binding.tvSignIn.setOnClickListener(v -> {
             onBackPressed();
+        });
+
+        binding.btnSignUp.setOnClickListener(v -> {
+            viewModel.signUp("Armando Salazar", "armando@email.com", "123");
         });
 
 

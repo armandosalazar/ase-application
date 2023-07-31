@@ -52,7 +52,7 @@ public class PeopleFragment extends Fragment {
                             binding.recyclerViewPeople.setAdapter(adapter);
                         },
                         error -> {
-                            System.out.println("Error: " + error.getMessage());
+                            System.out.println("ErrorResponse: " + error.getMessage());
                         }
                 );
 

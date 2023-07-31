@@ -32,7 +32,7 @@ public class SignInActivity extends AppCompatActivity {
         viewModel = new SignInViewModel(this);
 
         binding.btnSignIn.setOnClickListener(v -> {
-            viewModel.login("armando@email.com", "1234");
+            viewModel.login("armando@email.com", "123");
         });
 
         setContentView(binding.getRoot());

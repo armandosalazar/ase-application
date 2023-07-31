@@ -1,15 +1,17 @@
 package org.armandosalazar.aseapplication.ui.sign;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.ViewModel;
 
-import com.google.gson.Gson;
-
 import org.armandosalazar.aseapplication.model.ErrorResponse;
 import org.armandosalazar.aseapplication.model.User;
 import org.armandosalazar.aseapplication.network.AuthService;
+import org.armandosalazar.aseapplication.network.ErrorHandler;
+
+import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.Disposable;
@@ -38,15 +40,16 @@ public class SignInViewModel extends ViewModel {
                                 String token = headers.get("Authorization");
                                 Log.d(TAG, "Success: " + token);
                             } else {
-                                // TODO: !Important - Handle error
-                                /**
-                                 * response.errorBody() is only readable once. If you try to read it again, you will get an IllegalStateException.
-                                 */
-                                Gson gson = new Gson();
-                                ErrorResponse errorResponse = gson.fromJson(response.errorBody().string(), ErrorResponse.class);
-
-                                Log.e(TAG, "Error: " + errorResponse.getMessage());
-                                Log.e(TAG, "Code: " + errorResponse.getCode());
+                                ErrorResponse errorResponse = ErrorHandler.parseError(Objects.requireNonNull(response.errorBody()).string());
+                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                                builder
+                                        .setTitle("Error")
+                                        .setMessage(errorResponse.getMessage())
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .setPositiveButton("OK", (dialog, id) -> {
+                                            // User clicked OK button
+                                        })
+                                        .show();
                             }
                         },
                         throwable -> Log.e(TAG, "Error: " + throwable.getMessage(), throwable)

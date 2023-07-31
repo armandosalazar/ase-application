@@ -43,19 +43,20 @@ public class SignUpViewModel extends ViewModel {
                             Log.i(TAG, "signUp: " + user.getCreatedAt());
                             Log.i(TAG, "signUp: " + user.getUpdatedAt());
 
-                        },
-                        throwable -> {
-                            if (throwable instanceof HttpException) {
-                                HttpException exception = (HttpException) throwable;
-                                ErrorResponse errorResponse = ErrorHandler.parseError(exception.response());
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder.setTitle("Error");
-                                builder.setMessage(errorResponse.getMessage());
-                                builder.setPositiveButton("OK", null);
-                                builder.create().show();
-                            }
                         }
+//                        },
+//                        throwable -> {
+//                            if (throwable instanceof HttpException) {
+//                                HttpException exception = (HttpException) throwable;
+//                                ErrorResponse errorResponse = ErrorHandler.parseError(exception.response());
+//
+//                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//                                builder.setTitle("Error");
+//                                builder.setMessage(errorResponse.getMessage());
+//                                builder.setPositiveButton("OK", null);
+//                                builder.create().show();
+//                            }
+//                        }
                 );
     }
 }

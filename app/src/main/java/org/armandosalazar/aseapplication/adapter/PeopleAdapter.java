@@ -37,7 +37,7 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
         binding.name.setText(person.getName());
         binding.getRoot().setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), ChatActivity.class);
-            intent.putExtra("person", person.toString());
+            intent.putExtra("person", person);
             v.getContext().startActivity(intent);
         });
     }

@@ -7,39 +7,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:padding="10dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_margin="5dp"
             android:src="@drawable/user_picture" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/notification_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="title" />
-
-            <TextView
-                android:id="@+id/notification_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="data"
-                android:textSize="11sp" />
-        </LinearLayout>
-
+            android:paddingLeft="10dp"
+            android:text="Name"
+            android:textStyle="bold" />
     </LinearLayout>
-
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
 </LinearLayout>

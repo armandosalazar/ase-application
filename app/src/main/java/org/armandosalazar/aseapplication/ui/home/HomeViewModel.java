@@ -10,8 +10,11 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import org.armandosalazar.aseapplication.Notification;
 import org.armandosalazar.aseapplication.model.Post;
 import org.armandosalazar.aseapplication.network.PostService;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,11 +23,22 @@ import java.util.Objects;
 import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 
 public class HomeViewModel extends ViewModel {
     private static final String TAG = "HomeViewModel";
     private final MutableLiveData<List<Post>> posts;
     private final Disposable disposable;
+    private Socket socket;
+
+    {
+        try {
+            socket = IO.socket("http://10.0.2.2:3000");
+        } catch (Exception e) {
+            Log.e(TAG, "instance initializer: ", e);
+        }
+    }
 
     public HomeViewModel(Context context) {
 
@@ -68,7 +82,30 @@ public class HomeViewModel extends ViewModel {
                         () -> Log.d(TAG, "onCreate: completed")
                 );
 
+        socket.on("server:message", args -> {
+            JSONObject data = (JSONObject) args[0];
+            Log.e(TAG, "onCreate: " + data.toString());
+            try {
+                if (data.get("idSender").equals(1)) {
+                    Log.e(TAG, "onCreate: " + data.get("message"));
+                    Notification.show(context, "New message", data.get("message").toString());
+                }
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        socket.emit("client:message", new JSONObject() {
+            {
+                try {
+                    put("idSender", 1);
+                    put("idReceiver", 2);
+                    put("message", "Hello from Android");
+                } catch (JSONException ignored) {
+                }
+            }
+        });
 
+        socket.connect();
     }
 
     @Override

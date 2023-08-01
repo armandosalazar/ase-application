@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import org.armandosalazar.aseapplication.adapter.PeopleAdapter;
+import org.armandosalazar.aseapplication.adapter.UsersAdapter;
 import org.armandosalazar.aseapplication.databinding.FragmentPeopleBinding;
 import org.armandosalazar.aseapplication.model.User;
 
@@ -35,12 +35,12 @@ public class PeopleFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding.recyclerViewPeople.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewPeople.setAdapter(new PeopleAdapter(new ArrayList<>()));
+        binding.recyclerViewPeople.setAdapter(new UsersAdapter(new ArrayList<>()));
 
         MutableLiveData<List<User>> observer = viewModel.getUsers();
 
         observer.observe(getViewLifecycleOwner(), users -> {
-            PeopleAdapter adapter = (PeopleAdapter) binding.recyclerViewPeople.getAdapter();
+            UsersAdapter adapter = (UsersAdapter) binding.recyclerViewPeople.getAdapter();
             Objects.requireNonNull(adapter).setUsers(users);
             adapter.notifyDataSetChanged();
         });

@@ -15,11 +15,11 @@ import org.armandosalazar.aseapplication.ui.chat.ChatActivity;
 
 import java.util.List;
 
-public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
     private final List<User> users;
     private ItemPersonBinding binding;
 
-    public PeopleAdapter(List<User> users) {
+    public UsersAdapter(List<User> users) {
         this.users = users;
     }
 

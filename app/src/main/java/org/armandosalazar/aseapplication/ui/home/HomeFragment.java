@@ -16,7 +16,7 @@ import java.util.Collections;
 
 public class HomeFragment extends Fragment {
     private FragmentHomeBinding binding;
-    private HomeViewModel homeViewModel;
+    private HomeViewModel viewModel;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -26,14 +26,18 @@ public class HomeFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
-        homeViewModel = new HomeViewModel(getContext());
+        viewModel = new HomeViewModel(getContext());
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewPosts.setAdapter(new PostsAdapter(Collections.emptyList()));
-        homeViewModel.getPosts().observe(getViewLifecycleOwner(), posts -> binding.recyclerViewPosts.setAdapter(new PostsAdapter(posts)));
+        viewModel.getPosts().observe(getViewLifecycleOwner(), posts -> binding.recyclerViewPosts.setAdapter(new PostsAdapter(posts)));
+
+        binding.btnNewPost.setOnClickListener(v -> {
+            viewModel.addPost("New post from Android");
+        });
 
         return binding.getRoot();
     }

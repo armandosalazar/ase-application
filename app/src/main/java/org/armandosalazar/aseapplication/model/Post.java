@@ -1,31 +1,29 @@
 package org.armandosalazar.aseapplication.model;
 
 public class Post {
+    private int id;
+    private int userId;
     private String username;
     private String content;
-    private boolean favorite = false;
 
-    public boolean isFavorite() {
-        return favorite;
+    public Post(int userId, String content) {
+        this.userId = userId;
+        this.content = content;
     }
 
-    public void setFavorite(boolean favorite) {
-        this.favorite = favorite;
+    public int getId() {
+        return id;
+    }
+
+    public int getUserId() {
+        return userId;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getContent() {
         return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 }

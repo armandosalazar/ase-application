@@ -46,7 +46,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         binding = ItemPostBinding.bind(holder.itemView);
         Post post = posts.get(position);
 
-        binding.textUsername.setText(post.getUsername());
+        binding.textUsername.setText(String.valueOf(post.getId()));
         binding.textContent.setText(post.getContent());
 
         binding.addLike.setOnCheckedChangeListener((buttonView, isChecked) -> {

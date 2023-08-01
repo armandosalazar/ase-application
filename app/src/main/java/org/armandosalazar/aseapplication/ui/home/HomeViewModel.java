@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.util.Log;
 
+import androidx.datastore.preferences.core.Preferences;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -47,21 +48,9 @@ public class HomeViewModel extends ViewModel {
     }
 
     public HomeViewModel(Context context) {
-        Disposable dataStoreDisposable = DataStore.getInstance(context)
-                .data()
-                .subscribe(preferences -> {
-                    String userString = Objects.requireNonNull(preferences.get(DataStore.USER_KEY)).toString();
-                    Log.d(TAG, "HomeViewModel: " + userString);
-                    if (!userString.isEmpty()) {
-                        Gson gson = new Gson();
-                        user = gson.fromJson(userString, User.class);
-                        Log.d(TAG, "HomeViewModel: " + user.toString());
-                    }
-                    token = Objects.requireNonNull(preferences.get(DataStore.TOKEN_KEY)).toString();
-                    Log.d(TAG, "HomeViewModel: " + token);
-                }, throwable -> {
-                    Log.e(TAG, "HomeViewModel: ", throwable);
-                });
+        Preferences preferences = DataStore.getInstance(context).data().blockingFirst();
+
+        user = new Gson().fromJson((String) preferences.get(DataStore.USER_KEY), User.class);
 
         PostService postService = PostService.retrofit.create(PostService.class);
 
@@ -136,6 +125,19 @@ public class HomeViewModel extends ViewModel {
 
     public void addPost(String content) {
         PostService postService = PostService.retrofit.create(PostService.class);
+
+        Observable<Post> postObservable = postService.createPost(token, new Post(user.getId(), content));
+        Disposable postDisposable = postObservable
+                .subscribeOn(Schedulers.io())
+                .observeOn(mainThread())
+                .subscribe(post -> {
+                    Log.d(TAG, "addPost: " + post.getUserId());
+                    List<Post> postList = posts.getValue();
+                    postList.add(post);
+                    posts.setValue(postList);
+                }, throwable -> {
+                    Log.e(TAG, "addPost: ", throwable);
+                });
     }
 
     public LiveData<List<Post>> getPosts() {

@@ -15,11 +15,15 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityChatBinding binding = ActivityChatBinding.inflate(getLayoutInflater());
+        ChatViewModel viewModel = new ChatViewModel();
 
         User user = (User) getIntent().getSerializableExtra("user");
 
         binding.name.setText(Objects.requireNonNull(user).getFullName());
-        binding.backButton.setOnClickListener(v -> onBackPressed());
+        binding.backButton.setOnClickListener(v -> {
+            viewModel.sendMessage("Hello World!");
+            onBackPressed();
+        });
 
         setContentView(binding.getRoot());
     }

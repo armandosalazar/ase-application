@@ -1,5 +1,7 @@
 package org.armandosalazar.aseapplication.model;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 
 public class User implements Serializable {

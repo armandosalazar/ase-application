@@ -59,7 +59,7 @@ public class SignInViewModel extends ViewModel {
                     // save json in datastore
                     MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
                     mutablePreferences.set(DataStore.TOKEN_KEY, token);
-                    mutablePreferences.set(DataStore.USER, json);
+                    mutablePreferences.set(DataStore.USER_KEY, json);
                     return Single.just(mutablePreferences);
                 }).subscribe(preferences -> {
                     Log.d(TAG, "Token & user saved");

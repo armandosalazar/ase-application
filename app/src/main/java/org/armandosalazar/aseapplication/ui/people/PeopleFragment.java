@@ -29,7 +29,7 @@ public class PeopleFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = FragmentPeopleBinding.inflate(getLayoutInflater());
-        viewModel = new PeopleViewModel();
+        viewModel = new PeopleViewModel(getContext());
     }
 
     @Override

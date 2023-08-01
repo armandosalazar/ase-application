@@ -10,8 +10,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.gson.Gson;
+
+import org.armandosalazar.aseapplication.DataStore;
 import org.armandosalazar.aseapplication.Notification;
 import org.armandosalazar.aseapplication.model.Post;
+import org.armandosalazar.aseapplication.model.User;
 import org.armandosalazar.aseapplication.network.PostService;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,9 +32,11 @@ import io.socket.client.Socket;
 
 public class HomeViewModel extends ViewModel {
     private static final String TAG = "HomeViewModel";
-    private final MutableLiveData<List<Post>> posts;
+    private final MutableLiveData<List<Post>> posts = new MutableLiveData<>();
     private final Disposable disposable;
     private Socket socket;
+    private User user;
+    private String token;
 
     {
         try {
@@ -41,8 +47,22 @@ public class HomeViewModel extends ViewModel {
     }
 
     public HomeViewModel(Context context) {
+        Disposable dataStoreDisposable = DataStore.getInstance(context)
+                .data()
+                .subscribe(preferences -> {
+                    String userString = Objects.requireNonNull(preferences.get(DataStore.USER_KEY)).toString();
+                    Log.d(TAG, "HomeViewModel: " + userString);
+                    if (!userString.isEmpty()) {
+                        Gson gson = new Gson();
+                        user = gson.fromJson(userString, User.class);
+                        Log.d(TAG, "HomeViewModel: " + user.toString());
+                    }
+                    token = Objects.requireNonNull(preferences.get(DataStore.TOKEN_KEY)).toString();
+                    Log.d(TAG, "HomeViewModel: " + token);
+                }, throwable -> {
+                    Log.e(TAG, "HomeViewModel: ", throwable);
+                });
 
-        posts = new MutableLiveData<>();
         PostService postService = PostService.retrofit.create(PostService.class);
 
         Observable<List<Post>> observable = postService.getPosts();
@@ -112,6 +132,10 @@ public class HomeViewModel extends ViewModel {
     protected void onCleared() {
         super.onCleared();
         disposable.dispose();
+    }
+
+    public void addPost(String content) {
+        PostService postService = PostService.retrofit.create(PostService.class);
     }
 
     public LiveData<List<Post>> getPosts() {

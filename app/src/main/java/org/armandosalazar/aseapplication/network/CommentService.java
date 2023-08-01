@@ -16,5 +16,5 @@ public interface CommentService {
     @GET("/api/comments/{id}")
     Call<Comment> getComment(int id);
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
 }

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.armandosalazar.aseapplication.databinding.ActivityChatBinding;
-import org.armandosalazar.aseapplication.model.Person;
+import org.armandosalazar.aseapplication.model.User;
 
 import java.util.Objects;
 
@@ -16,9 +16,9 @@ public class ChatActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityChatBinding binding = ActivityChatBinding.inflate(getLayoutInflater());
 
-        Person person = (Person) getIntent().getSerializableExtra("person");
+        User user = (User) getIntent().getSerializableExtra("user");
 
-        binding.name.setText(Objects.requireNonNull(person).getName());
+        binding.name.setText(Objects.requireNonNull(user).getFullName());
         binding.backButton.setOnClickListener(v -> onBackPressed());
 
         setContentView(binding.getRoot());

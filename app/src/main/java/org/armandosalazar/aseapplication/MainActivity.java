@@ -53,16 +53,6 @@ public class MainActivity extends AppCompatActivity {
             return false;
         });
 
-        // Update mutable preferences
-        DataManager.getInstance(this).getDataStore().updateDataAsync(dataStore -> {
-            MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
-            mutablePreferences.set(PreferencesKeys.booleanKey("dark_mode"), true);
-            return Single.just(mutablePreferences);
-        });
-        // read data
-        Flowable<Boolean> darkMode = DataManager.getInstance(this).getDataStore().data().map(preferences -> preferences.get(PreferencesKeys.booleanKey("dark_mode")));
-        Log.e("darkMode", "DARK MODE: " + darkMode.blockingFirst());
-
         setContentView(binding.getRoot());
     }
 }

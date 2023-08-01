@@ -15,10 +15,11 @@ public interface UserService {
 
     @Headers("Authorization: Bearer" + " " + "${token}")
     @GET("/api/users")
-    Observable<List<User>> getAll();
+    Observable<List<User>> getUsers();
 
     @POST("/api/users")
     Observable<User> create(@Body User user);
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
+
 }

@@ -12,5 +12,5 @@ public interface PeopleService {
     @GET("/api/people")
     Observable<List<Person>> getPeople();
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
 }

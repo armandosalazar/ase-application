@@ -12,5 +12,5 @@ public interface NotificationService {
     @GET("/api/notifications")
     Call<List<Notification>> getNotifications();
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
 }

@@ -2,19 +2,25 @@ package org.armandosalazar.aseapplication.ui.sign;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import androidx.datastore.preferences.core.MutablePreferences;
+import androidx.datastore.preferences.core.Preferences;
+import androidx.datastore.rxjava3.RxDataStore;
 import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 
-import org.armandosalazar.aseapplication.DataManager;
+import org.armandosalazar.aseapplication.DataStore;
+import org.armandosalazar.aseapplication.MainActivity;
 import org.armandosalazar.aseapplication.model.ErrorResponse;
 import org.armandosalazar.aseapplication.model.User;
 import org.armandosalazar.aseapplication.network.AuthService;
 import org.armandosalazar.aseapplication.network.ErrorHandler;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -27,71 +33,67 @@ public class SignInViewModel extends ViewModel {
 
     private static final String TAG = "SignInViewModel";
     Context context;
+    private List<Disposable> disposables;
+
 
     public SignInViewModel(Context context) {
         this.context = context;
+        // init disposables as empty list
+        disposables = new ArrayList<>();
     }
 
     public void login(String email, String password) {
         AuthService authService = AuthService.retrofit.create(AuthService.class);
 
-        Disposable disposable = authService.login(new User(email, password))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(
-                        response -> {
-                            if (response.isSuccessful()) {
-                                Headers headers = response.headers();
-                                String token = headers.get("Authorization");
-                                Log.d(TAG, "Authorization: " + token);
-                                // Save token in datastore
-                                Disposable disposable1 = DataManager.getInstance(context)
-                                        .getDataStore()
-                                        .updateDataAsync(dataStore -> {
-                                            User user = response.body();
-                                            // convert user to json
-                                            Gson gson = new Gson();
-                                            String json = gson.toJson(user);
-                                            // save json in datastore
-                                            MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
-                                            mutablePreferences.set(DataManager.TOKEN_KEY, token);
-                                            mutablePreferences.set(DataManager.USER, json);
-                                            return Single.just(mutablePreferences);
-                                        }).subscribe(
-                                                preferences -> {
-                                                    Log.d(TAG, "Token & user saved");
-                                                    Log.d(TAG, "Preferences: " + preferences.toString());
-                                                },
-                                                throwable -> Log.e(TAG, "Error saving token: " + throwable.getMessage(), throwable)
-                                        );
+        Disposable disposableAuthService = authService.login(new User(email, password)).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(response -> {
+            if (response.isSuccessful()) {
+                Headers headers = response.headers();
+                String token = headers.get("Authorization");
+                // Save token in datastore
+                RxDataStore<Preferences> store = DataStore.getInstance(context);
+                Disposable disposable = store.updateDataAsync(dataStore -> {
+                    User user = response.body();
+                    // convert user to json
+                    Gson gson = new Gson();
+                    String json = gson.toJson(user);
+                    // save json in datastore
+                    MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
+                    mutablePreferences.set(DataStore.TOKEN_KEY, token);
+                    mutablePreferences.set(DataStore.USER, json);
+                    return Single.just(mutablePreferences);
+                }).subscribe(preferences -> {
+                    Log.d(TAG, "Token & user saved");
+                    Log.i(TAG, "Preferences: " + preferences.toString());
+                    context.startActivity(new Intent(context, MainActivity.class));
+                }, throwable -> Log.e(TAG, "Error saving token: " + throwable.getMessage(), throwable));
 
-                                // Read all data from datastore
-                                Disposable disposable2 = DataManager.getInstance(context)
-                                        .getDataStore()
-                                        .data()
-                                        .subscribe(
-                                                preferences -> {
-                                                    Log.d(TAG, "Preferences: " + preferences.toString());
-                                                },
-                                                throwable -> Log.e(TAG, "Error reading preferences: " + throwable.getMessage(), throwable)
-                                        );
+                // Read all data from datastore
+                Disposable disposable2 = DataStore.getInstance(context).data().subscribe(preferences -> {
+                    Log.i(TAG, "Preferences: " + preferences.toString());
+                }, throwable -> Log.e(TAG, "Error reading preferences: " + throwable.getMessage(), throwable));
 
 
-                            } else {
-                                ErrorResponse errorResponse = ErrorHandler.parseError(Objects.requireNonNull(response.errorBody()).string());
-                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                                builder
-                                        .setTitle("Error")
-                                        .setMessage(errorResponse.getMessage())
-                                        .setIcon(android.R.drawable.ic_dialog_alert)
-                                        .setPositiveButton("OK", (dialog, id) -> {
-                                            // User clicked OK button
-                                        })
-                                        .show();
-                            }
-                        },
-                        throwable -> Log.e(TAG, "Error: " + throwable.getMessage(), throwable)
-                );
+            } else {
+                ErrorResponse errorResponse = ErrorHandler.parseError(Objects.requireNonNull(response.errorBody()).string());
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder
+                        .setTitle("Error").setMessage(errorResponse.getMessage()).setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton("OK", (dialog, id) -> {
+                            // User clicked OK button
+                        }).show();
+            }
+        }, throwable -> Log.e(TAG, "Error: " + throwable.getMessage(), throwable));
+
+        disposables.add(disposableAuthService);
+    }
+
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+        if (!disposables.isEmpty()) {
+            for (Disposable disposable : disposables) {
+                disposable.dispose();
+            }
+        }
     }
 
 

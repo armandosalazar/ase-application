@@ -12,5 +12,5 @@ public interface ProfileService {
     @POST("/profile/picture")
     Call<Void> uploadPicture(@Part MultipartBody.Part picture);
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
 }

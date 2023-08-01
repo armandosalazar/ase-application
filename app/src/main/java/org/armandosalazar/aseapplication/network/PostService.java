@@ -12,5 +12,5 @@ public interface PostService {
     @GET("/api/posts")
     Observable<List<Post>> getPosts();
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
 }

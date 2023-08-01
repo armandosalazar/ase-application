@@ -13,5 +13,5 @@ public interface AuthService {
     @POST("/api/auth")
     Observable<Response<User>> login(@Body User user);
 
-    Retrofit retrofit = RetrofitClient.get();
+    Retrofit retrofit = RetrofitClient.getInstance();
 }

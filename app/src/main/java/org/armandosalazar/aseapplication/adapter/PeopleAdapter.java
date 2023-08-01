@@ -10,17 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.ItemPersonBinding;
-import org.armandosalazar.aseapplication.model.Person;
+import org.armandosalazar.aseapplication.model.User;
 import org.armandosalazar.aseapplication.ui.chat.ChatActivity;
 
 import java.util.List;
 
 public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder> {
-    private final List<Person> people;
+    private final List<User> users;
     private ItemPersonBinding binding;
 
-    public PeopleAdapter(List<Person> people) {
-        this.people = people;
+    public PeopleAdapter(List<User> users) {
+        this.users = users;
     }
 
     @NonNull
@@ -33,18 +33,23 @@ public class PeopleAdapter extends RecyclerView.Adapter<PeopleAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         binding = ItemPersonBinding.bind(holder.itemView);
-        final Person person = people.get(position);
-        binding.name.setText(person.getName());
+        final User user = users.get(position);
+        binding.name.setText(user.getFullName());
         binding.getRoot().setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), ChatActivity.class);
-            intent.putExtra("person", person);
+            intent.putExtra("user", user);
             v.getContext().startActivity(intent);
         });
     }
 
     @Override
     public int getItemCount() {
-        return people.size();
+        return users.size();
+    }
+
+    public void setUsers(List<User> users) {
+        this.users.clear();
+        this.users.addAll(users);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

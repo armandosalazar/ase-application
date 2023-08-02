@@ -48,8 +48,8 @@ public class ChatViewModel extends ViewModel {
 
     }
 
-    public LiveData<List<Message>> getMessages() {
-        Observable<List<Message>> observableMessages = messageServices.getMessages(token, 2);
+    public LiveData<List<Message>> getMessages(int receiverId) {
+        Observable<List<Message>> observableMessages = messageServices.getMessages(token, receiverId);
         Disposable disposable = observableMessages
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

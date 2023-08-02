@@ -33,7 +33,7 @@ public class ChatActivity extends AppCompatActivity {
         binding.recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewMessages.setAdapter(new MessagesAdapter(new ArrayList<>()));
 
-        viewModel.getMessages().observe(this, messages -> {
+        viewModel.getMessages(user.getId()).observe(this, messages -> {
             MessagesAdapter adapter = (MessagesAdapter) binding.recyclerViewMessages.getAdapter();
             Objects.requireNonNull(adapter).setMessages(messages);
             binding.recyclerViewMessages.scrollToPosition(messages.size() - 1);

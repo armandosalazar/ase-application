@@ -3,14 +3,12 @@ package org.armandosalazar.aseapplication.adapter;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.armandosalazar.aseapplication.R;
@@ -61,8 +59,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
             BottomSheetDialog bottomSheetComments = new BottomSheetDialog(v.getContext());
             bottomSheetComments.setContentView(R.layout.bottom_sheet_comments);
 
-            FrameLayout bottomSheet = bottomSheetComments.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-            BottomSheetBehavior.from(bottomSheet).setState(BottomSheetBehavior.STATE_EXPANDED);
+            // FrameLayout bottomSheet = bottomSheetComments.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            //BottomSheetBehavior.from(Objects.requireNonNull(bottomSheet)).setState(BottomSheetBehavior.STATE_EXPANDED);
 
 
             RecyclerView recyclerView = bottomSheetComments.findViewById(R.id.recycler_view_comments);

@@ -51,17 +51,34 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:paddingTop="10dp"
         android:id="@+id/recycler_view_messages"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/edit_text_message"
+        android:layout_above="@id/layout_message"
         android:layout_below="@id/toolbar_chat" />
 
-    <EditText
-        android:id="@+id/edit_text_message"
+    <LinearLayout
+        android:id="@+id/layout_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:hint="Message" />
+        android:padding="10dp">
+
+        <EditText
+            android:id="@+id/message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Message" />
+
+        <Button
+            android:id="@+id/button_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="Sent" />
+    </LinearLayout>
+
 
 </RelativeLayout>

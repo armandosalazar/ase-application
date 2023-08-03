@@ -36,7 +36,7 @@ public class HomeViewModel extends ViewModel {
     private final MutableLiveData<List<Post>> posts = new MutableLiveData<>();
     private final Disposable disposable;
     private Socket socket;
-    private User user;
+    private final User user;
     private String token;
 
     {
@@ -58,8 +58,11 @@ public class HomeViewModel extends ViewModel {
         disposable = observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(mainThread())
-                .subscribe(
-                        posts::setValue,
+                .subscribe(response -> {
+                            posts.setValue(response);
+                            Log.d(TAG, "onCreate: " + new Gson().toJson(response));
+
+                        },
                         throwable -> {
                             // get throwable message
                             String message = throwable.getMessage();

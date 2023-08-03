@@ -52,8 +52,8 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore-preferences-rxjava3:1.0.0")
     // RxJava
-    implementation("io.reactivex.rxjava3:rxjava:3.1.3")
-    implementation("io.reactivex.rxjava3:rxandroid:3.0.0")
+    implementation("io.reactivex.rxjava3:rxjava:3.1.6")
+    implementation("io.reactivex.rxjava3:rxandroid:3.0.2")
     // Retrofit RxJava Adapter
     implementation("com.squareup.retrofit2:adapter-rxjava3:2.9.0")
     // Google Maps

@@ -36,9 +36,9 @@ public class ChatViewModel extends ViewModel {
         token = (String) preferences.get(DataStore.TOKEN_KEY);
     }
 
-    void sendMessage(String content) {
-        Observable<Message> observableMessage = messageServices.sendMessage(token, new Message(2, content));
-        Disposable disposable = observableMessage
+    void sendMessage(int receiverId, String content) {
+        Observable<Message> observableMessage = messageServices.sendMessage(token, new Message(receiverId, content));
+        Disposable disposableMessage = observableMessage
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -50,7 +50,7 @@ public class ChatViewModel extends ViewModel {
 
     public LiveData<List<Message>> getMessages(int receiverId) {
         Observable<List<Message>> observableMessages = messageServices.getMessages(token, receiverId);
-        Disposable disposable = observableMessages
+        Disposable disposableMessages = observableMessages
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -58,7 +58,10 @@ public class ChatViewModel extends ViewModel {
                             Log.d(TAG, "getMessages: " + messages.size());
                             this.messages.setValue(messages);
                         },
-                        throwable -> Log.e(TAG, "getMessages: ", throwable)
+                        throwable -> {
+                            Log.e(TAG, "getMessages: ");
+                            Log.e(TAG, "Error Type: " + throwable.getClass().getSimpleName());
+                        }
                 );
 
         return messages;

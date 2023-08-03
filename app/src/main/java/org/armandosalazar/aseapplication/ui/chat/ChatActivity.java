@@ -1,6 +1,8 @@
 package org.armandosalazar.aseapplication.ui.chat;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +27,38 @@ public class ChatActivity extends AppCompatActivity {
         User user = (User) getIntent().getSerializableExtra("user");
 
         binding.name.setText(Objects.requireNonNull(user).getFullName());
-        binding.backButton.setOnClickListener(v -> {
-            // viewModel.sendMessage("Hello World!");
-            onBackPressed();
+        // Listen changes on the message field
+        // binding.message.addTextChangedListener(viewModel.messageWatcher);
+        binding.backButton.setOnClickListener(v -> finish());
+        binding.buttonSend.setOnClickListener(v -> {
+            String message = binding.message.getText().toString();
+            if (!message.isEmpty()) {
+                viewModel.sendMessage(user.getId(), message);
+                binding.message.setText("");
+            }
         });
+        binding.buttonSend.setEnabled(false);
+        binding.message.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if (binding.message.getText().toString().isEmpty()) {
+                    binding.buttonSend.setEnabled(false);
+                } else {
+                    binding.buttonSend.setEnabled(true);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+        });
+
 
         binding.recyclerViewMessages.setLayoutManager(new LinearLayoutManager(this));
         binding.recyclerViewMessages.setAdapter(new MessagesAdapter(new ArrayList<>()));

@@ -9,8 +9,6 @@ public class User implements Serializable {
     private String fullName;
     private String email;
     private String password;
-
-    // createAt and updateAt from sequelize is DataTime on MySQL
     private String createdAt;
     private String updatedAt;
 

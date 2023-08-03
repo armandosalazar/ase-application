@@ -33,7 +33,7 @@ public class SignInViewModel extends ViewModel {
 
     private static final String TAG = "SignInViewModel";
     Context context;
-    private List<Disposable> disposables;
+    private final List<Disposable> disposables;
 
 
     public SignInViewModel(Context context) {
@@ -81,7 +81,33 @@ public class SignInViewModel extends ViewModel {
                             // User clicked OK button
                         }).show();
             }
-        }, throwable -> Log.e(TAG, "Error: " + throwable.getMessage(), throwable));
+        }, throwable -> {
+            Log.e(TAG, "Error: " + throwable.getMessage());
+            // Print type throwable
+            Log.e(TAG, "Type: " + throwable.getClass().getName());
+            // Verify if throwable is an instance of retrofit2.HttpException
+            if (throwable instanceof retrofit2.HttpException) {
+                retrofit2.HttpException httpException = (retrofit2.HttpException) throwable;
+                // Get response body
+                String errorBody = httpException.response().errorBody().string();
+                // Parse error body
+                ErrorResponse errorResponse = ErrorHandler.parseError(errorBody);
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Error")
+                        .setMessage(errorResponse.getMessage())
+                        .setPositiveButton("OK", (dialog, id) -> {
+                            // User clicked OK button
+                        }).show();
+            }
+            // Verify if throwable is an instance of java.net.SocketTimeoutException
+            if (throwable instanceof java.net.SocketTimeoutException) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Error").setMessage("Connection timeout")
+                        .setPositiveButton("OK", (dialog, id) -> {
+                        }).show();
+            }
+
+        });
 
         disposables.add(disposableAuthService);
     }

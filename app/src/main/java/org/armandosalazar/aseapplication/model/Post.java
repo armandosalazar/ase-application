@@ -2,13 +2,18 @@ package org.armandosalazar.aseapplication.model;
 
 public class Post {
     private int id;
-    private int userId;
-    private String username;
-    private String content;
+    private final int userId;
+    private final String content;
+    private User user;
+
 
     public Post(int userId, String content) {
         this.userId = userId;
         this.content = content;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public int getId() {
@@ -17,10 +22,6 @@ public class Post {
 
     public int getUserId() {
         return userId;
-    }
-
-    public String getUsername() {
-        return username;
     }
 
     public String getContent() {

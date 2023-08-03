@@ -18,6 +18,7 @@ import org.armandosalazar.aseapplication.model.Post;
 import org.armandosalazar.aseapplication.network.CommentService;
 
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,8 +45,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         binding = ItemPostBinding.bind(holder.itemView);
         Post post = posts.get(position);
 
-        binding.textUsername.setText(String.valueOf(post.getId()));
-        binding.textContent.setText(post.getContent());
+        if (Objects.nonNull(post.getUser())) {
+            binding.textUsername.setText(post.getUser().getFullName());
+            binding.textContent.setText(post.getContent());
+        }
 
         binding.addLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {

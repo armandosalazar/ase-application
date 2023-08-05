@@ -1,6 +1,5 @@
 package org.armandosalazar.aseapplication;
 
-import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
@@ -11,7 +10,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-public class Notification extends Application {
+public class Notification {
 
     private static final String CHANNEL_ID = "channel_id";
 

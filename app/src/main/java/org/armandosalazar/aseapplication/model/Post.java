@@ -5,6 +5,7 @@ public class Post {
     private final int userId;
     private final String content;
     private User user;
+    private String createdAt;
 
 
     public Post(int userId, String content) {
@@ -26,5 +27,9 @@ public class Post {
 
     public String getContent() {
         return content;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
     }
 }

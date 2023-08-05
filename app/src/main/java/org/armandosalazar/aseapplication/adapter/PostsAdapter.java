@@ -1,33 +1,29 @@
 package org.armandosalazar.aseapplication.adapter;
 
-import android.util.Log;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.ItemPostBinding;
-import org.armandosalazar.aseapplication.model.Comment;
 import org.armandosalazar.aseapplication.model.Post;
-import org.armandosalazar.aseapplication.network.CommentService;
 
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
     private final List<Post> posts = new ArrayList<>();
-    private ItemPostBinding binding;
 
 
     @NonNull
@@ -38,56 +34,38 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         return new PostViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        binding = ItemPostBinding.bind(holder.itemView);
+        ItemPostBinding binding = ItemPostBinding.bind(holder.itemView);
         Post post = posts.get(position);
 
         if (Objects.nonNull(post.getUser())) {
             binding.textUsername.setText(post.getUser().getFullName());
             binding.textContent.setText(post.getContent());
+
+            binding.textDate.setText(getFormattedDate(post.getCreatedAt()));
         }
 
-        binding.addLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                binding.addLike.setText(" Liked");
-            } else {
-                binding.addLike.setText(" Like");
-            }
-        });
 
         binding.addComment.setOnClickListener(v -> {
-            BottomSheetDialog bottomSheetComments = new BottomSheetDialog(v.getContext());
-            bottomSheetComments.setContentView(R.layout.bottom_sheet_comments);
-
-            // FrameLayout bottomSheet = bottomSheetComments.findViewById(com.google.android.material.R.id.design_bottom_sheet);
-            //BottomSheetBehavior.from(Objects.requireNonNull(bottomSheet)).setState(BottomSheetBehavior.STATE_EXPANDED);
-
-
-            RecyclerView recyclerView = bottomSheetComments.findViewById(R.id.recycler_view_comments);
-
-            CommentService commentService = CommentService.retrofit.create(CommentService.class);
-
-            Call<List<Comment>> call = commentService.getComments();
-            call.enqueue(new Callback<List<Comment>>() {
-                @Override
-                public void onResponse(Call<List<Comment>> call, Response<List<Comment>> response) {
-                    Log.i("Comments", response.body().toString());
-                    CommentsAdapter commentsAdapter = new CommentsAdapter(response.body());
-                    final LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
-                    layoutManager.setReverseLayout(true);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setAdapter(commentsAdapter);
-                }
-
-                @Override
-                public void onFailure(Call<List<Comment>> call, Throwable t) {
-
-                }
-            });
-
-            bottomSheetComments.show();
         });
+
+        binding.addLike.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private static String getFormattedDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ISO_INSTANT;
+
+        Instant instant = Instant.from(formatter.parse(date));
+        ZonedDateTime zonedDateTime = instant.atZone(ZoneId.systemDefault());
+
+        Locale locale = new Locale("es", "MX");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("E d 'de' MMM HH:mm", locale);
+
+        return zonedDateTime.format(outputFormatter);
     }
 
     @Override

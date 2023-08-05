@@ -1,8 +1,8 @@
 package org.armandosalazar.aseapplication.ui.home;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.datastore.preferences.core.Preferences;
@@ -19,11 +19,12 @@ import org.armandosalazar.aseapplication.network.PostRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.socket.client.IO;
+import io.socket.client.Socket;
 
 public class HomeViewModel extends ViewModel {
     private static final String TAG = "HomeViewModel";
@@ -32,13 +33,32 @@ public class HomeViewModel extends ViewModel {
     private final List<Disposable> disposables = new ArrayList<>();
     private final User user;
     private final String token;
+    @SuppressLint("StaticFieldLeak")
     private final Context context;
+
+    private final Socket socket;
+
+    {
+        try {
+            socket = IO.socket("http://192.168.0.16:3000");
+            socket.connect();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public HomeViewModel(Context context) {
         this.context = context;
+
         Preferences preferences = DataStore.getInstance(context).data().blockingFirst();
         user = new Gson().fromJson((String) preferences.get(DataStore.USER_KEY), User.class);
         token = (String) preferences.get(DataStore.TOKEN_KEY);
+
+        socket.on("message", args -> {
+            Log.d(TAG, args[0].toString());
+            Log.e(TAG, "onCleared: >>>>>>>>>>>>>>>>>>>>");
+            fetchData();
+        });
     }
 
     private void fetchData() {
@@ -57,7 +77,7 @@ public class HomeViewModel extends ViewModel {
 
 
     public void createPost(String content) {
-        disposables.add(postRepository.createPost("", new Post(user.getId(), content))
+        disposables.add(postRepository.createPost(token, new Post(user.getId(), content))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(post -> {
@@ -66,7 +86,6 @@ public class HomeViewModel extends ViewModel {
                             .setMessage("Post created successfully")
                             .setPositiveButton("OK", (dialog, id) -> {
                             }).show();
-                    fetchData();
                 }, throwable -> {
                     Log.e(TAG, "onError: ", throwable);
                 }));
@@ -75,7 +94,6 @@ public class HomeViewModel extends ViewModel {
     }
 
     public LiveData<List<Post>> getPosts() {
-        // Important: fetch data only once
         fetchData();
         return posts;
     }

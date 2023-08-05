@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -9,25 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="5dp">
+        android:padding="5dp">
 
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginLeft="5dp"
             android:src="@drawable/user_picture" />
 
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="wrap_content" />
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="5dp">
+            android:layout_gravity="center"
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/text_username"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:text="username"
                 android:textStyle="bold" />
 
@@ -59,54 +60,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:paddingHorizontal="4dp"
         android:paddingVertical="4dp">
 
-        <Space
-            android:layout_width="5dp"
-            android:layout_height="wrap_content" />
-
-        <!--        <CheckBox-->
-        <!--            android:id="@+id/isFavorite"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:button="@drawable/selector_favorite"-->
-        <!--            android:minWidth="0dp"-->
-        <!--            android:minHeight="0dp"-->
-        <!--            android:tag="unchecked"-->
-        <!--            android:text=" Like"-->
-        <!--            app:useMaterialThemeColors="false" />-->
         <ImageView
-            android:id="@+id/isFavorite"
+            android:id="@+id/is_favorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_favorite_border" />
 
-        <LinearLayout
+        <ImageView
             android:id="@+id/add_comment"
-            android:layout_width="wrap_content"
+            android:layout_width="22dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp">
-
-            <ImageView
-                android:layout_width="22dp"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_comment" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:text="Comment"
-                android:textColor="#000" />
-        </LinearLayout>
-
+            android:src="@drawable/ic_comment" />
 
     </LinearLayout>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
-        android:layout_height="5dp" />
-
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

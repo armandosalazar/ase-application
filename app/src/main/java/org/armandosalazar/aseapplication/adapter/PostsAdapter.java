@@ -64,7 +64,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         ItemPostBinding binding = ItemPostBinding.bind(holder.itemView);
         Post post = posts.get(position);
 
-        binding.textUsername.setText(post.getUser().getFullName());
+        Log.d(TAG, "onBindViewHolder: " + post.getUser().getFullName());
+        String username = post.getUser().getFullName();
+        Log.d(TAG, "onBindViewHolder: " + username);
+        binding.textUsername.setText(username);
         binding.textContent.setText(post.getContent());
         binding.textDate.setText(getFormattedDate(post.getCreatedAt()));
         if (post.isFavorite()) {

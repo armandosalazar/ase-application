@@ -26,10 +26,10 @@ public class ChatActivity extends AppCompatActivity {
 
         User user = (User) getIntent().getSerializableExtra("user");
 
-        binding.name.setText(Objects.requireNonNull(user).getFullName());
-        // Listen changes on the message field
-        // binding.message.addTextChangedListener(viewModel.messageWatcher);
-        binding.backButton.setOnClickListener(v -> finish());
+        binding.textViewName.setText(user.getFullName());
+        binding.textViewEmail.setText(user.getEmail());
+        binding.buttonBack.setOnClickListener(v -> finish());
+
         binding.buttonSend.setOnClickListener(v -> {
             String message = binding.message.getText().toString();
             if (!message.isEmpty()) {

@@ -12,6 +12,7 @@
         android:layout_alignParentEnd="true"
         android:background="#FFC107"
         android:padding="10dp"
+        android:layout_marginStart="100dp"
         android:textColor="#FFFFFF"
         android:text="Sender" />
 </RelativeLayout>

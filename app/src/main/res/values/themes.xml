@@ -18,6 +18,8 @@
         <item name="boxStrokeWidth">0dp</item>
         <item name="boxStrokeColor">#fff</item>
         <item name="boxStrokeErrorColor">#fff</item>
+        <!-- remove border on focus -->
+        <item name="boxStrokeWidthFocused">0dp</item>
         <!-- set background color -->
         <item name="boxBackgroundColor">#cecece</item>
     </style>

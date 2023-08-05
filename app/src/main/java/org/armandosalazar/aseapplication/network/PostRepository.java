@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
-public interface PostService {
+public interface PostRepository {
     @GET("/api/posts")
     Observable<List<Post>> getPosts();
 

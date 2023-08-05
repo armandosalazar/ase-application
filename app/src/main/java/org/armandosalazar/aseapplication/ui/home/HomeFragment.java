@@ -12,11 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import org.armandosalazar.aseapplication.adapter.PostsAdapter;
 import org.armandosalazar.aseapplication.databinding.FragmentHomeBinding;
 
-import java.util.Collections;
-
 public class HomeFragment extends Fragment {
+    private static final String TAG = "HomeFragment";
     private FragmentHomeBinding binding;
     private HomeViewModel viewModel;
+    private PostsAdapter postsAdapter;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -27,16 +27,22 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
         viewModel = new HomeViewModel(getContext());
+        postsAdapter = new PostsAdapter();
+
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding.recyclerViewPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewPosts.setAdapter(new PostsAdapter(Collections.emptyList()));
-        viewModel.getPosts().observe(getViewLifecycleOwner(), posts -> binding.recyclerViewPosts.setAdapter(new PostsAdapter(posts)));
+        binding.recyclerViewPosts.setAdapter(postsAdapter);
 
-        binding.btnNewPost.setOnClickListener(v -> {
-            viewModel.addPost("New post from Android");
+        viewModel
+                .getPosts()
+                .observe(getViewLifecycleOwner(), posts -> postsAdapter.setItems(posts));
+
+        binding.buttonCreatePost.setOnClickListener(view -> {
+            viewModel.createPost(binding.editTextPost.getText().toString());
+            binding.editTextPost.setText("");
         });
 
         return binding.getRoot();

@@ -22,14 +22,14 @@
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/et_new_post"
+                    android:id="@+id/edit_text_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="What's on your mind?" />
 
                 <Button
-                    android:id="@+id/btn_new_post"
+                    android:id="@+id/button_create_post"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

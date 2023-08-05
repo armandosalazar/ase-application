@@ -3,7 +3,14 @@ package org.armandosalazar.aseapplication;
 import android.content.Context;
 
 public class Application extends android.app.Application {
-    public Context getContext() {
-        return getApplicationContext();
+    private static Application instance;
+
+    public Application() {
+        instance = this;
     }
+
+    public static Application getInstance() {
+        return instance;
+    }
+
 }

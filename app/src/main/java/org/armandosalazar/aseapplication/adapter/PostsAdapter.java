@@ -17,6 +17,7 @@ import org.armandosalazar.aseapplication.model.Comment;
 import org.armandosalazar.aseapplication.model.Post;
 import org.armandosalazar.aseapplication.network.CommentService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -25,12 +26,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHolder> {
-    private final List<Post> posts;
+    private final List<Post> posts = new ArrayList<>();
     private ItemPostBinding binding;
 
-    public PostsAdapter(List<Post> posts) {
-        this.posts = posts;
-    }
 
     @NonNull
     @Override
@@ -95,6 +93,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
     @Override
     public int getItemCount() {
         return posts.size();
+    }
+
+    public void setItems(List<Post> posts) {
+        this.posts.clear();
+        this.posts.addAll(posts);
+        notifyDataSetChanged();
     }
 
     public static class PostViewHolder extends RecyclerView.ViewHolder {

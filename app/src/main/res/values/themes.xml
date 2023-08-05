@@ -13,4 +13,12 @@
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="Custom.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <!-- remove border -->
+        <item name="boxStrokeWidth">0dp</item>
+        <item name="boxStrokeColor">#fff</item>
+        <item name="boxStrokeErrorColor">#fff</item>
+        <!-- set background color -->
+        <item name="boxBackgroundColor">#cecece</item>
+    </style>
 </resources>

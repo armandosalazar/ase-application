@@ -54,7 +54,7 @@ public class HomeViewModel extends ViewModel {
         user = new Gson().fromJson((String) preferences.get(DataStore.USER_KEY), User.class);
         token = (String) preferences.get(DataStore.TOKEN_KEY);
 
-        socket.on("message", args -> {
+        socket.on("new-post", args -> {
             Log.d(TAG, args[0].toString());
             Log.e(TAG, "onCleared: >>>>>>>>>>>>>>>>>>>>");
             fetchData();
@@ -62,7 +62,7 @@ public class HomeViewModel extends ViewModel {
     }
 
     private void fetchData() {
-        disposables.add(postRepository.getPosts()
+        disposables.add(postRepository.getPosts(token)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(posts::postValue, throwable -> {

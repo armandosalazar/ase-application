@@ -47,7 +47,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="content" />
+        android:text="content"
+        android:textColor="@color/black" />
 
 
     <com.google.android.material.divider.MaterialDivider
@@ -64,16 +65,21 @@
             android:layout_width="5dp"
             android:layout_height="wrap_content" />
 
-        <CheckBox
-            android:id="@+id/add_like"
+        <!--        <CheckBox-->
+        <!--            android:id="@+id/isFavorite"-->
+        <!--            android:layout_width="wrap_content"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:button="@drawable/selector_favorite"-->
+        <!--            android:minWidth="0dp"-->
+        <!--            android:minHeight="0dp"-->
+        <!--            android:tag="unchecked"-->
+        <!--            android:text=" Like"-->
+        <!--            app:useMaterialThemeColors="false" />-->
+        <ImageView
+            android:id="@+id/isFavorite"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:button="@drawable/selector_favorite"
-            android:minWidth="0dp"
-            android:minHeight="0dp"
-            android:tag="unchecked"
-            android:text=" Like"
-            app:useMaterialThemeColors="false" />
+            android:src="@drawable/ic_favorite_border" />
 
         <LinearLayout
             android:id="@+id/add_comment"

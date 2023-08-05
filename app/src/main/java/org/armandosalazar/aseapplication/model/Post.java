@@ -7,6 +7,15 @@ public class Post {
     private User user;
     private String createdAt;
 
+    private boolean isFavorite;
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
 
     public Post(int userId, String content) {
         this.userId = userId;

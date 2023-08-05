@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,7 @@ public class HomeFragment extends Fragment {
         super.onCreate(savedInstanceState);
         binding = FragmentHomeBinding.inflate(getLayoutInflater());
         viewModel = new HomeViewModel(getContext());
-        postsAdapter = new PostsAdapter();
+        postsAdapter = new PostsAdapter(getContext());
 
     }
 
@@ -41,8 +42,12 @@ public class HomeFragment extends Fragment {
                 .observe(getViewLifecycleOwner(), posts -> postsAdapter.setItems(posts));
 
         binding.buttonCreatePost.setOnClickListener(view -> {
-            viewModel.createPost(binding.editTextPost.getText().toString());
-            binding.editTextPost.setText("");
+            if (binding.textInputLayoutPost.getEditText().getText().toString().isEmpty()) {
+                binding.textInputLayoutPost.setError("Post cannot be empty");
+                return;
+            }
+            viewModel.createPost(binding.textInputLayoutPost.getEditText().getText().toString());
+            binding.textInputLayoutPost.getEditText().setText("");
         });
 
         return binding.getRoot();

@@ -14,12 +14,20 @@
         android:paddingHorizontal="10dp"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageView
+            android:id="@+id/btn_more"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="end"
+            android:background="#ffffff"
+            android:layout_marginVertical="10dp"
+            android:src="@drawable/ic_menu" />
+
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingTop="50dp"
-            android:paddingBottom="5dp"
-            android:layout_height="wrap_content">
+            android:paddingBottom="5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/image_profile"

@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.github.dhaval2404.imagepicker.ImagePicker;
@@ -121,6 +123,25 @@ public class ProfileFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
 
             }
+        });
+
+        binding.btnMore.setOnClickListener(v -> {
+            PopupMenu popupMenu = new PopupMenu(getContext(), binding.btnMore);
+            popupMenu.inflate(R.menu.profile_menu);
+            popupMenu.setOnMenuItemClickListener(item -> {
+                if (item.getItemId() == R.id.action_about) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle("About")
+                            .setMessage("Social Network by Armando Salazar\nVersion 1.0.0")
+                            .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+                            .show();
+                }
+                if (item.getItemId() == R.id.action_logout) {
+                    // viewModel.logout(getContext());
+                }
+                return true;
+            });
+            popupMenu.show();
         });
 
         return binding.getRoot();

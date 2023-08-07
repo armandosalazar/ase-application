@@ -13,6 +13,7 @@
         <item name="android:statusBarColor">?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="Custom.TextInputLayout.OutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <!-- remove border -->
         <item name="boxStrokeWidth">0dp</item>
@@ -21,6 +22,22 @@
         <!-- remove border on focus -->
         <item name="boxStrokeWidthFocused">0dp</item>
         <!-- set background color -->
-        <item name="boxBackgroundColor">#cecece</item>
+        <item name="boxBackgroundColor">#ccc</item>
+        <!-- border radius -->
+        <item name="boxCornerRadiusTopStart">30dp</item>
+        <item name="boxCornerRadiusTopEnd">30dp</item>
+        <item name="boxCornerRadiusBottomStart">30dp</item>
+        <item name="boxCornerRadiusBottomEnd">30dp</item>
+    </style>
+
+    <style name="Custom.TextAppearance.AppCompat.Button" parent="TextAppearance.AppCompat.Button">
+        <item name="android:textColor">@color/white</item>
+        <!-- border radius -->
+        <item name="boxCornerRadiusTopStart">30dp</item>
+        <item name="boxCornerRadiusTopEnd">30dp</item>
+        <item name="boxCornerRadiusBottomStart">30dp</item>
+        <item name="boxCornerRadiusBottomEnd">30dp</item>
+        <!-- background color -->
+        <item name="android:background">@color/blue</item>
     </style>
 </resources>

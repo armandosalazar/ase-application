@@ -68,7 +68,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/layout_message"
-        android:layout_below="@id/toolbar_chat" />
+        android:layout_below="@id/toolbar_chat"
+        android:paddingTop="10dp" />
 
     <LinearLayout
         android:id="@+id/layout_message"

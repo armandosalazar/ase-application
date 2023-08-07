@@ -22,7 +22,7 @@
         <!-- remove border on focus -->
         <item name="boxStrokeWidthFocused">0dp</item>
         <!-- set background color -->
-        <item name="boxBackgroundColor">#ccc</item>
+        <item name="boxBackgroundColor">#fff</item>
         <!-- border radius -->
         <item name="boxCornerRadiusTopStart">30dp</item>
         <item name="boxCornerRadiusTopEnd">30dp</item>

@@ -18,4 +18,8 @@ public class Message {
     public int getSenderId() {
         return senderId;
     }
+
+    public int getReceiverId() {
+        return receiverId;
+    }
 }

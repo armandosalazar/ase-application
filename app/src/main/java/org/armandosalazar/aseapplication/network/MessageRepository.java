@@ -12,7 +12,7 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 
-public interface MessageServices {
+public interface MessageRepository {
     // Get messages
     @GET("/api/messages/{receiverId}")
     Observable<List<Message>> getMessages(@Header("Authorization") String token, @Path("receiverId") int receiverId);

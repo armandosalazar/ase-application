@@ -36,6 +36,7 @@ public class ProfileFragment extends Fragment {
 
 
     private FragmentProfileBinding binding;
+    private ProfileViewModel viewModel;
 
     public static ProfileFragment newInstance() {
         return new ProfileFragment();
@@ -49,6 +50,11 @@ public class ProfileFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater, container, false);
+        viewModel = new ProfileViewModel(getContext());
+        viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
+            binding.tvFullName.setText(user.getFullName());
+            binding.tvEmail.setText(user.getEmail());
+        });
 
         ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {

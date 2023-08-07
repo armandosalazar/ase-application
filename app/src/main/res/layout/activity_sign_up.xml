@@ -21,6 +21,7 @@
             android:src="@drawable/user_picture" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Full name">
@@ -36,6 +37,7 @@
             android:layout_height="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email">
@@ -51,6 +53,7 @@
             android:layout_height="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password">
@@ -68,6 +71,7 @@
             android:layout_height="10dp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Confirm Password">

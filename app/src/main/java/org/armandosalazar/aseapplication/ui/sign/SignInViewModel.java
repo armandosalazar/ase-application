@@ -33,13 +33,11 @@ public class SignInViewModel extends ViewModel {
 
     private static final String TAG = "SignInViewModel";
     Context context;
-    private final List<Disposable> disposables;
+    private final List<Disposable> disposables = new ArrayList<>();
 
 
     public SignInViewModel(Context context) {
         this.context = context;
-        // init disposables as empty list
-        disposables = new ArrayList<>();
     }
 
     public void login(String email, String password) {

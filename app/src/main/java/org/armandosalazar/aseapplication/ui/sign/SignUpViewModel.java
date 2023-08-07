@@ -34,29 +34,23 @@ public class SignUpViewModel extends ViewModel {
                 .subscribe(
                         user -> {
                             Log.d(TAG, "signUp: " + user);
-                            // show user data
-                            Log.i(TAG, "signUp: " + user.getId());
-                            Log.i(TAG, "signUp: " + user.getFullName());
-                            Log.i(TAG, "signUp: " + user.getEmail());
-                            Log.i(TAG, "signUp: " + user.getPassword());
-                            // CreatedAt and UpdatedAt
-                            Log.i(TAG, "signUp: " + user.getCreatedAt());
-                            Log.i(TAG, "signUp: " + user.getUpdatedAt());
-
+                            new AlertDialog.Builder(context)
+                                    .setTitle("Success")
+                                    .setMessage("User created successfully\nNow you can sign in")
+                                    .setPositiveButton("OK", (dialog, which) -> {
+                                        dialog.dismiss();
+                                    })
+                                    .show();
+                        },
+                        error -> {
+                            new AlertDialog.Builder(context)
+                                    .setTitle("Error")
+                                    .setMessage(error.getMessage())
+                                    .setPositiveButton("OK", (dialog, which) -> {
+                                        dialog.dismiss();
+                                    })
+                                    .show();
                         }
-//                        },
-//                        throwable -> {
-//                            if (throwable instanceof HttpException) {
-//                                HttpException exception = (HttpException) throwable;
-//                                ErrorResponse errorResponse = ErrorHandler.parseError(exception.response());
-//
-//                                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-//                                builder.setTitle("Error");
-//                                builder.setMessage(errorResponse.getMessage());
-//                                builder.setPositiveButton("OK", null);
-//                                builder.create().show();
-//                            }
-//                        }
                 );
     }
 }

@@ -32,7 +32,19 @@ public class SignInActivity extends AppCompatActivity {
         viewModel = new SignInViewModel(this);
 
         binding.btnSignIn.setOnClickListener(v -> {
-            viewModel.login("armando@email.com", "123");
+            // viewModel.login("armando@email.com", "123");
+            if (binding.tilEmail.getEditText().getText().toString().trim().isEmpty()) {
+                binding.tilEmail.setError("Email is required");
+            }
+            if (binding.tilPassword.getEditText().getText().toString().trim().isEmpty()) {
+                binding.tilPassword.setError("Password is required");
+            }
+            if (!binding.tilEmail.getEditText().getText().toString().trim().isEmpty() &&
+                    !binding.tilPassword.getEditText().getText().toString().trim().isEmpty()) {
+                viewModel.login(
+                        binding.tilEmail.getEditText().getText().toString().trim(),
+                        binding.tilPassword.getEditText().getText().toString().trim());
+            }
         });
 
         setContentView(binding.getRoot());

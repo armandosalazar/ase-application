@@ -41,7 +41,7 @@ public class ChatViewModel extends ViewModel {
         user = new Gson().fromJson((String) preferences.get(DataStore.USER_KEY), User.class);
         token = (String) preferences.get(DataStore.TOKEN_KEY);
 
-        socket.on("new-message", args -> {
+        socket.on("server:[new-message]", args -> {
             Message message = new Gson().fromJson(args[0].toString(), Message.class);
             if (message.getSenderId() == user.getId() || message.getReceiverId() == user.getId()) {
                 Log.d(TAG, "on: " + message.getContent());

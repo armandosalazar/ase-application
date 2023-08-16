@@ -7,9 +7,10 @@ import java.net.URISyntaxException;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 
-public class SocketRepository {
+public abstract class SocketRepository {
     private static final String TAG = SocketRepository.class.getSimpleName();
-    private static final String SOCKET_URL = "http://192.168.0.16:3000";
+    private static final String SOCKET_URL = Const.BASE_URL;
+
     private static Socket socket;
 
 

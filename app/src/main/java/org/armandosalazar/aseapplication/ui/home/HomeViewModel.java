@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import org.armandosalazar.aseapplication.DataStore;
 import org.armandosalazar.aseapplication.model.Post;
 import org.armandosalazar.aseapplication.model.User;
+import org.armandosalazar.aseapplication.network.Const;
 import org.armandosalazar.aseapplication.network.PostRepository;
 
 import java.util.ArrayList;
@@ -40,7 +41,8 @@ public class HomeViewModel extends ViewModel {
 
     {
         try {
-            socket = IO.socket("http://192.168.0.16:3000");
+            socket = IO.socket(Const.BASE_URL);
+
             socket.connect();
         } catch (Exception e) {
             throw new RuntimeException(e);

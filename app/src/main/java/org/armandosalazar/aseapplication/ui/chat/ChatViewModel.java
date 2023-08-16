@@ -1,5 +1,6 @@
 package org.armandosalazar.aseapplication.ui.chat;
 
+import android.content.Context;
 import android.util.Log;
 
 import androidx.datastore.preferences.core.Preferences;
@@ -31,9 +32,10 @@ public class ChatViewModel extends ViewModel {
     private final User user;
     private final String token;
     private final MessageRepository messageRepository = MessageRepository.retrofit.create(MessageRepository.class);
-    private final Socket socket = SocketRepository.getInstance();
 
-    public ChatViewModel() {
+    public ChatViewModel(Context context) {
+        final Socket socket = SocketRepository.getInstance(context);
+
         Preferences preferences = DataStore.getInstance(null).data().blockingFirst();
         Log.d(TAG, "ChatViewModel: " + preferences.get(DataStore.USER_KEY));
         user = new Gson().fromJson((String) preferences.get(DataStore.USER_KEY), User.class);

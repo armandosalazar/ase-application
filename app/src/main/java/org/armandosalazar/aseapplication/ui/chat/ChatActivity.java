@@ -22,7 +22,7 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivityChatBinding binding = ActivityChatBinding.inflate(getLayoutInflater());
-        ChatViewModel viewModel = new ChatViewModel();
+        ChatViewModel viewModel = new ChatViewModel(this);
 
         User user = (User) getIntent().getSerializableExtra("user");
 

@@ -17,6 +17,7 @@ import org.armandosalazar.aseapplication.model.Post;
 import org.armandosalazar.aseapplication.model.User;
 import org.armandosalazar.aseapplication.network.Const;
 import org.armandosalazar.aseapplication.network.PostRepository;
+import org.armandosalazar.aseapplication.network.SocketRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,26 +40,23 @@ public class HomeViewModel extends ViewModel {
 
     private final Socket socket;
 
-    {
-        try {
-            socket = IO.socket(Const.BASE_URL);
-
-            socket.connect();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public HomeViewModel(Context context) {
         this.context = context;
+        {
+            try {
+                socket = SocketRepository.getInstance(context);
+
+                socket.connect();
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
 
         Preferences preferences = DataStore.getInstance(context).data().blockingFirst();
         user = new Gson().fromJson((String) preferences.get(DataStore.USER_KEY), User.class);
         token = (String) preferences.get(DataStore.TOKEN_KEY);
 
         socket.on("new-post", args -> {
-            Log.d(TAG, args[0].toString());
-            Log.e(TAG, "onCleared: >>>>>>>>>>>>>>>>>>>>");
             fetchData();
         });
     }
@@ -83,11 +81,6 @@ public class HomeViewModel extends ViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(post -> {
-                    new AlertDialog.Builder(context)
-                            .setTitle("Success")
-                            .setMessage("Post created successfully")
-                            .setPositiveButton("OK", (dialog, id) -> {
-                            }).show();
                 }, throwable -> {
                     Log.e(TAG, "onError: ", throwable);
                 }));

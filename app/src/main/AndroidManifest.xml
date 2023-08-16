@@ -5,9 +5,10 @@
     <uses-permission android:name="android.permission.INTERNET" /> <!-- Location permission -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- Notification permission -->
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-    <!-- Sensor proximity permission -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" /> <!-- Sensor proximity permission -->
     <uses-permission android:name="android.permission.SENSOR_PROXIMITY" />
+    <!-- Alarm permission -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
 
     <application
@@ -22,6 +23,9 @@
         android:theme="@style/Theme.AseApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".AlarmManagerActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.sign.SignUpActivity"
             android:exported="false" />

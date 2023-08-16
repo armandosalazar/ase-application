@@ -19,8 +19,8 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="end"
-            android:background="#ffffff"
             android:layout_marginVertical="10dp"
+            android:background="#ffffff"
             android:src="@drawable/ic_menu" />
 
         <LinearLayout
@@ -64,18 +64,40 @@
 
         </LinearLayout>
 
-
-        <Button
-            android:id="@+id/button_edit_profile_photo"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="0dp"
-            android:text="Edit photo"
-            android:textAllCaps="false"
-            app:layout_constraintBottom_toTopOf="@id/tab_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_edit_profile_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:text="Edit photo"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+
+            <Space
+                android:layout_width="10dp"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button_events"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="0dp"
+                android:text="Add event"
+                android:textAllCaps="false"
+                app:layout_constraintBottom_toTopOf="@id/tab_layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_full_name" />
+        </LinearLayout>
+
 
     </LinearLayout>
 

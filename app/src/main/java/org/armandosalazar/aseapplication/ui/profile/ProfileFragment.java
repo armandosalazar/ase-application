@@ -1,6 +1,7 @@
 package org.armandosalazar.aseapplication.ui.profile;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -113,6 +114,11 @@ public class ProfileFragment extends Fragment {
                         launcher.launch(intent);
                         return Unit.INSTANCE;
                     });
+        });
+
+        binding.buttonEvents.setOnClickListener(v -> {
+            AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Activity.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + 5000, null);
         });
 
         binding.tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

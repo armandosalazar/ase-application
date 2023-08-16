@@ -10,7 +10,8 @@
         android:orientation="horizontal"
         android:padding="5dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_profile"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/user_picture" />

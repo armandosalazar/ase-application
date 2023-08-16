@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 import androidx.datastore.preferences.core.Preferences;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -21,6 +22,7 @@ import org.armandosalazar.aseapplication.databinding.ItemPostBinding;
 import org.armandosalazar.aseapplication.model.FavoritePost;
 import org.armandosalazar.aseapplication.model.Post;
 import org.armandosalazar.aseapplication.model.User;
+import org.armandosalazar.aseapplication.network.Const;
 import org.armandosalazar.aseapplication.network.PostRepository;
 
 import java.time.Instant;
@@ -70,6 +72,11 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.PostViewHold
         binding.textUsername.setText(username);
         binding.textContent.setText(post.getContent());
         binding.textDate.setText(getFormattedDate(post.getCreatedAt()));
+        if (post.getUser().getProfilePicture() != null) {
+            Glide.with(holder.itemView.getContext())
+                    .load(Const.BASE_URL + "/uploads/" + post.getUser().getProfilePicture())
+                    .into(binding.imageProfile);
+        }
         if (post.isFavorite()) {
             binding.isFavorite.setImageResource(R.drawable.ic_favorite);
         } else {

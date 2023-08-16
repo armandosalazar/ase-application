@@ -13,13 +13,17 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.datastore.preferences.core.Preferences;
 import androidx.fragment.app.Fragment;
 
+import com.bumptech.glide.Glide;
 import com.github.dhaval2404.imagepicker.ImagePicker;
 import com.google.android.material.tabs.TabLayout;
 
+import org.armandosalazar.aseapplication.DataStore;
 import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.FragmentProfileBinding;
+import org.armandosalazar.aseapplication.network.Const;
 import org.armandosalazar.aseapplication.network.ProfileService;
 import org.armandosalazar.aseapplication.ui.profile.qualifications.QualificationsFragment;
 
@@ -56,7 +60,13 @@ public class ProfileFragment extends Fragment {
         viewModel.getUser().observe(getViewLifecycleOwner(), user -> {
             binding.tvFullName.setText(user.getFullName());
             binding.tvEmail.setText(user.getEmail());
+            if (user.getProfilePicture() != null) {
+                Glide.with(this).load(Const.BASE_URL + "/uploads/" + user.getProfilePicture()).into(binding.imageProfile);
+            }
         });
+
+        Preferences preferences = DataStore.getInstance(getContext()).data().blockingFirst();
+        String token = (String) preferences.get(DataStore.TOKEN_KEY);
 
         ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK) {
@@ -75,7 +85,7 @@ public class ProfileFragment extends Fragment {
                             .build()
                             .part(0);
 
-                    Call<Void> call = service.uploadPicture(part);
+                    Call<Void> call = service.uploadPicture(token, part);
                     call.enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {

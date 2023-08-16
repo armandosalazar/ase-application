@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import org.armandosalazar.aseapplication.R;
 import org.armandosalazar.aseapplication.databinding.ItemPersonBinding;
 import org.armandosalazar.aseapplication.model.User;
+import org.armandosalazar.aseapplication.network.Const;
 import org.armandosalazar.aseapplication.ui.chat.ChatActivity;
 
 import java.util.List;
@@ -40,6 +43,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             intent.putExtra("user", user);
             v.getContext().startActivity(intent);
         });
+        if (user.getProfilePicture() != null) {
+            Glide.with(holder.itemView.getContext())
+                    .load(Const.BASE_URL + "/uploads/" + user.getProfilePicture())
+                    .into(binding.profileImage);
+        }
     }
 
     @Override

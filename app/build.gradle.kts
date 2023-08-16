@@ -60,6 +60,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     // Socket.io
     implementation("io.socket:socket.io-client:2.1.0")
+    // Glide
+    implementation("com.github.bumptech.glide:glide:4.12.0")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

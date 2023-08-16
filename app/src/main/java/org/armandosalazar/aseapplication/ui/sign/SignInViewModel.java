@@ -54,6 +54,7 @@ public class SignInViewModel extends ViewModel {
                     // convert user to json
                     Gson gson = new Gson();
                     String json = gson.toJson(user);
+                    Log.d(TAG, "User: " + json);
                     // save json in datastore
                     MutablePreferences mutablePreferences = dataStore.toMutablePreferences();
                     mutablePreferences.set(DataStore.TOKEN_KEY, token);

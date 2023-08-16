@@ -21,6 +21,12 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/text_proximity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Proximity" />
+
 
         <LinearLayout
             android:layout_width="match_parent"

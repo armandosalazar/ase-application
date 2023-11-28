@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 
 public interface AuthService {
 
-    @POST("/api/auth")
+    @POST("/api/auth/login")
     Observable<Response<User>> login(@Body User user);
 
     Retrofit retrofit = RetrofitClient.getInstance();

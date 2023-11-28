@@ -16,7 +16,7 @@ public interface UserService {
     @GET("/api/users")
     Observable<List<User>> getUsers(@Header("Authorization") String token);
 
-    @POST("/api/users")
+    @POST("/api/auth/register")
     Observable<User> create(@Body User user);
 
     Retrofit retrofit = RetrofitClient.getInstance();
